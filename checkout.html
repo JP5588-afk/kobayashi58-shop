@@ -5,50 +5,140 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>結帳頁面</title>
   <link rel="stylesheet" href="/kobayashi58-shop/style.css" />
+  <style>
+    body {
+      background-color: #fff0f5;
+      font-family: "Noto Sans TC", sans-serif;
+    }
+    header {
+      background-color: #ffc0cb;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 4px solid #ff69b4;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+      color: white;
+    }
+    .tagline {
+      color: #fff8f8;
+      font-size: 16px;
+      margin-top: 6px;
+    }
+
+    #checkout-items {
+      max-width: 400px;
+      margin: 30px auto 10px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 0 10px rgba(255, 182, 193, 0.3);
+      font-size: 16px;
+      color: #444;
+    }
+
+    #checkout-items h3 {
+      text-align: center;
+      color: #ff69b4;
+      margin-bottom: 12px;
+    }
+
+    #checkout-items p {
+      margin: 6px 0;
+      font-weight: bold;
+    }
+
+    #checkout-form {
+      max-width: 400px;
+      margin: 10px auto 40px;
+      background-color: #fffafc;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 0 10px rgba(255, 105, 180, 0.2);
+    }
+
+    .checkout-btn {
+      width: 100%;
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 14px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: bold;
+    }
+
+    .checkout-btn:hover {
+      background-color: #e75494;
+    }
+  </style>
 </head>
 <body>
 
-<form id="checkout-form">
-  <!-- 所有輸入欄位跟隱藏欄位都照舊 -->
-  <input type="hidden" name="items" id="items-data" />
-  <input type="hidden" name="total" id="total-data" />
-  <button type="submit">送出訂單</button>
-</form>
+  <header>
+    <h1>こばやし選物所</h1>
+    <p class="tagline">確認購物內容，送出訂單就完成囉 ✨</p>
+  </header>
 
-<script>
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  let total = 0;
+  <div id="checkout-items">
+    <h3>購物車內容</h3>
+    <!-- 這裡會用 JavaScript 顯示商品清單 -->
+  </div>
 
-  cart.forEach(item => {
-    total += item.price * item.quantity;
-  });
+  <form id="checkout-form">
+    <input type="hidden" name="items" id="items-data" />
+    <input type="hidden" name="total" id="total-data" />
+    <button type="submit" class="checkout-btn">送出訂單</button>
+  </form>
 
-  const form = document.getElementById("checkout-form");
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
+  <script>
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let total = 0;
 
-    // 填入購物資料
-    document.getElementById("items-data").value = cart.map(item => `${item.name} x${item.quantity}`).join(", ");
-    document.getElementById("total-data").value = `NT$${total}`;
+    const checkoutItems = document.getElementById("checkout-items");
 
-    // 使用 JS 傳送資料到 Formspree
-    const formData = new FormData(form);
-    fetch("https://formspree.io/f/mgvzarlo", {
-      method: "POST",
-      body: formData,
-      headers: {
-        Accept: "application/json",
-      },
-    }).then(response => {
-      if (response.ok) {
-        localStorage.removeItem("cart");
-        window.location.href = "pay.html"; // ✅ 成功後跳轉
-      } else {
-        alert("訂單送出失敗，請稍後再試");
-      }
+    if (cart.length === 0) {
+      checkoutItems.innerHTML += `<p class="empty-cart-message">目前購物車是空的喔 🛒</p>`;
+    } else {
+      cart.forEach(item => {
+        total += item.price * item.quantity;
+        const itemElement = document.createElement("p");
+        itemElement.textContent = `${item.name} x${item.quantity} - NT$${item.price * item.quantity}`;
+        checkoutItems.appendChild(itemElement);
+      });
+
+      const totalElement = document.createElement("p");
+      totalElement.textContent = `總金額：NT$${total}`;
+      checkoutItems.appendChild(totalElement);
+    }
+
+    const form = document.getElementById("checkout-form");
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      document.getElementById("items-data").value = cart.map(item => `${item.name} x${item.quantity}`).join(", ");
+      document.getElementById("total-data").value = `NT$${total}`;
+
+      const formData = new FormData(form);
+      fetch("https://formspree.io/f/mgvzarlo", {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      }).then(response => {
+        if (response.ok) {
+          localStorage.removeItem("cart");
+          window.location.href = "pay.html";
+        } else {
+          alert("訂單送出失敗，請稍後再試");
+        }
+      });
     });
-  });
-</script>
+  </script>
 
 </body>
 </html>
