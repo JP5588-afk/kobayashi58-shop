@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>こばやし選物所</title>
+  <link rel="stylesheet" href="style.css">
+</head><body>
+  <header>
+    <h1>こばやし選物所</h1>
+    <p class="tagline">精選日系零食與小物，每一樣都想抱回家 🍡</p>
+    <a href="cart.html" class="cart-btn">🛒 購物車</a>
+　　<a href="https://line.me/ti/g/C9W7CPNKNQ你的群組ID" class="line-btn" target="_blank">💬 LINE群</a>
+  </header>
+
+  <main class="product-grid">
+  <div class="product">
+    <a href="product.html?name=Pocky%20巧克力棒">
+     <img src="https://i.imgur.com/xkU43cF.png" alt="Pocky">
+    </a>
+    <a href="product.html?name=Pocky%20巧克力棒">
+      <h2>Pocky 巧克力棒</h2>
+    </a>
+    <p>NT$59</p>
+    <button onclick="addToCart('Pocky 巧克力棒', 59)">加入購物車</button>
+  </div>
+
+  <div class="product">
+    <a href="product.html?name=Calbee%20薯條">
+     <img src="https://i.imgur.com/yYB2rVA.png" alt="Pocky">
+    </a>
+    <a href="product.html?name=Calbee%20薯條">
+      <h2>Calbee 薯條</h2>
+    </a>
+    <p>NT$89</p>
+    <button onclick="addToCart('Calbee 薯條', 89)">加入購物車</button>
+  </div>
+
+</main>
+<script src="script.js"></script>
+</body>
+</html>

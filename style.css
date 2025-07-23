@@ -1,0 +1,379 @@
+body {
+  font-family: "Noto Sans TC", sans-serif;
+  background-color: #fff0f5;
+  color: #444;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #ffc0cb;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 4px solid #ff69b4;
+}
+
+h1 {
+  margin: 0;
+  font-size: 28px;
+  color: #fff;
+}
+
+.tagline {
+  margin-top: 8px;
+  font-size: 16px;
+  color: #fff8f8;
+}
+
+.cart-btn {
+  display: inline-block;
+  margin-top: 10px;
+  background-color: #ff69b4;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* 商品區：統一寬度 + 陰影 + 漂亮圓角 */
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.product {
+  background-color: white;
+  width: 280px;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(255, 192, 203, 0.3);
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.product:hover {
+  transform: scale(1.03);
+}
+
+.product img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.product h2 {
+  font-size: 18px;
+  margin: 10px 0 5px;
+}
+
+.product p {
+  font-size: 16px;
+  margin: 4px 0;
+}
+
+.product button {
+  background-color: #ff69b4;
+  border: none;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
+}
+
+.product button:hover {
+  background-color: #ff1493;
+}
+
+/* 購物車區域 */
+.cart-container {
+  padding: 20px;
+}
+
+.cart-item {
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 6px rgba(255, 192, 203, 0.2);
+}
+
+.cart-item select {
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ff69b4;
+  margin: 6px 0;
+  font-size: 16px;
+  width: 100%;
+}
+
+.remove-btn {
+  background-color: #f08080;
+  border: none;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-top: 8px;
+  cursor: pointer;
+  width: 100%;
+  font-weight: bold;
+}
+
+.checkout-btn {
+  display: inline-block;
+  margin-top: 20px;
+  background-color: #ff69b4;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+}
+
+/* 手機版優化 */
+@media (max-width: 600px) {
+  .product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    padding: 10px;
+  }
+
+  .product {
+    width: calc(50% - 12px); /* 兩欄 */
+    box-sizing: border-box;
+    margin-bottom: 16px;
+  }
+
+  .product img {
+    height: 140px;
+    object-fit: cover;
+  }
+
+  h1, h2, h3, p {
+    text-align: center;
+  }
+
+  button,
+  .cart-btn,
+  .checkout-btn,
+  .remove-btn,
+  select {
+    font-size: 16px;
+  }
+
+  .cart-item {
+    width: 100%;
+    font-size: 16px;
+    padding: 14px;
+    box-sizing: border-box;
+  }
+
+  .cart-item select {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .remove-btn {
+    width: 100%;
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  #checkout-form input,
+  #checkout-form select {
+    width: 100%;
+    font-size: 16px;
+  }
+}
+
+input[type="text"], input[type="tel"], select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ffb6c1;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 6px rgba(255, 192, 203, 0.2);
+}
+
+.cart-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-right: 12px;
+}
+
+.cart-info {
+  flex: 1;
+}
+
+.cart-info h3 {
+  margin: 0 0 6px;
+  font-size: 16px;
+}
+
+.cart-info p {
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+.cart-info label {
+  font-size: 14px;
+}
+
+.cart-info select {
+  width: 100%;
+  max-width: 100px;
+  padding: 6px;
+  margin: 4px 0;
+  font-size: 14px;
+  border: 1px solid #ff69b4;
+  border-radius: 6px;
+}
+
+.remove-btn {
+  background-color: #f08080;
+  border: none;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+/* 修正手機版 checkout-btn 超出問題 */
+.checkout-btn {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  background-color: #ff69b4;
+  color: white;
+  padding: 14px;
+  border-radius: 12px;
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* 結帳表單美化 */
+#checkout-form {
+  max-width: 400px;
+  margin: 20px auto;
+  background-color: #fff0f5;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 0 10px rgba(255, 105, 180, 0.2);
+  font-family: "Segoe UI", sans-serif;
+}
+
+#checkout-form label {
+  font-weight: bold;
+  color: #555;
+}
+
+#checkout-form input,
+#checkout-form select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.checkout-btn {
+  width: 100%;
+  background-color: #ff69b4;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.checkout-btn:hover {
+  background-color: #e75494;
+}
+
+/* 顯示購物車項目區塊 */
+#checkout-items {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: #fffafc;
+  border: 1px solid #ffccdf;
+  border-radius: 12px;
+  box-shadow: 0 0 5px rgba(255, 182, 193, 0.2);
+  font-size: 16px;
+}
+
+#checkout-items p {
+  margin: 6px 0;
+  font-weight: bold;
+}
+
+#checkout-items h3 {
+  text-align: center;
+  color: #c71585;
+}
+
+.product-detail-container {
+  padding: 20px;
+  text-align: center;
+}
+
+.detail-img {
+  max-width: 90%;
+  max-height: 300px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.line-btn {
+  background-color: #06c755;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.line-btn:hover {
+  background-color: #059944;
+}
+

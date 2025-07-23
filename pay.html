@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>付款資訊</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background-color: #fff0f5;
+      font-family: "Segoe UI", sans-serif;
+      text-align: center;
+      padding: 50px 20px;
+    }
+    .payment-box {
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(255, 105, 180, 0.2);
+    }
+    h1 {
+      color: #e91e63;
+    }
+    p {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #555;
+    }
+    .pay-btn {
+      margin-top: 30px;
+      background-color: #ff69b4;
+      color: white;
+      padding: 14px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .pay-btn:hover {
+      background-color: #e91e63;
+    }
+  </style>
+</head>
+<body>
+  <div class="payment-box">
+    <h1>訂單已送出 ✅</h1>
+    <p>請點擊下方按鈕前往付款頁面完成付款。</p>
+
+    <!-- 🏧 這裡之後可以改成全支付的金流連結 -->
+    <button class="pay-btn" onclick="location.href='https://your-payment-link.com'">前往付款</button>
+  </div>
+</body>
+</html>

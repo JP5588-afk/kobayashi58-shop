@@ -1,0 +1,41 @@
+<form id="checkout-form">
+  <!-- 所有輸入欄位跟隱藏欄位都照舊 -->
+  <input type="hidden" name="items" id="items-data" />
+  <input type="hidden" name="total" id="total-data" />
+  <button type="submit">送出訂單</button>
+</form>
+
+<script>
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let total = 0;
+
+  cart.forEach(item => {
+    total += item.price * item.quantity;
+  });
+
+  const form = document.getElementById("checkout-form");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault(); // 不讓它真的送出表單（我們自己用 JS 處理）
+
+    // 填入購物資料
+    document.getElementById("items-data").value = cart.map(item => `${item.name} x${item.quantity}`).join(", ");
+    document.getElementById("total-data").value = `NT$${total}`;
+
+    // 使用 JS 傳送資料到 Formspree
+    const formData = new FormData(form);
+    fetch("https://formspree.io/f/mgvzarlo", {
+      method: "POST",
+      body: formData,
+      headers: {
+        Accept: "application/json",
+      },
+    }).then(response => {
+      if (response.ok) {
+        localStorage.removeItem("cart");
+        window.location.href = "pay.html"; // ✅ 成功後跳轉
+      } else {
+        alert("訂單送出失敗，請稍後再試");
+      }
+    });
+  });
+</script>

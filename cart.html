@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>購物車｜こばやし選物所</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #fff;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 6px rgba(255, 192, 203, 0.2);
+      flex-wrap: wrap;
+    }
+
+    .cart-img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-right: 12px;
+    }
+
+    .cart-info {
+      flex: 1;
+      min-width: 160px;
+    }
+
+    .cart-info h3 {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .cart-info p {
+      margin: 4px 0;
+    }
+
+    .remove-btn {
+      background-color: #f08080;
+      border: none;
+      color: white;
+      padding: 6px 10px;
+      border-radius: 6px;
+      margin-left: 12px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🛒 購物車</h1>
+    <a href="index.html" class="cart-btn">← 返回選物</a>
+  </header>
+
+  <main class="cart-container">
+    <div id="cart-items"></div>
+    <h3 id="total">總金額：NT$0</h3>
+    <a href="checkout.html" class="checkout-btn">前往結帳</a>
+  </main>
+
+  <script>
+    function updateCartDisplay() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const cartContainer = document.getElementById("cart-items");
+      const totalDisplay = document.getElementById("total");
+
+      cartContainer.innerHTML = "";
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        const subtotal = item.price * item.quantity;
+        total += subtotal;
+
+        const div = document.createElement("div");
+        div.className = "cart-item";
+        div.innerHTML = `
+          <img src="https://via.placeholder.com/80" alt="商品圖示" class="cart-img">
+          <div class="cart-info">
+            <h3>${item.name}</h3>
+            <p>單價：NT$${item.price}</p>
+            <label>數量：</label>
+            <select data-index="${index}" class="qty">
+              ${[...Array(10)].map((_, i) => `
+                <option value="${i + 1}" ${item.quantity === i + 1 ? 'selected' : ''}>${i + 1}</option>
+              `).join('')}
+            </select>
+            <p>小計：NT$${subtotal}</p>
+          </div>
+          <button class="remove-btn" data-index="${index}">🔍 刪除</button>
+        `;
+        cartContainer.appendChild(div);
+      });
+
+      totalDisplay.textContent = `總金額：NT$${total}`;
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      updateCartDisplay();
+
+      document.getElementById("cart-items").addEventListener("change", function (e) {
+        if (e.target.classList.contains("qty")) {
+          const index = e.target.dataset.index;
+          const cart = JSON.parse(localStorage.getItem("cart")) || [];
+          cart[index].quantity = parseInt(e.target.value);
+          localStorage.setItem("cart", JSON.stringify(cart));
+          updateCartDisplay();
+        }
+      });
+
+      document.getElementById("cart-items").addEventListener("click", function (e) {
+        if (e.target.classList.contains("remove-btn")) {
+          const index = e.target.dataset.index;
+          const cart = JSON.parse(localStorage.getItem("cart")) || [];
+          cart.splice(index, 1);
+          localStorage.setItem("cart", JSON.stringify(cart));
+          updateCartDisplay();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

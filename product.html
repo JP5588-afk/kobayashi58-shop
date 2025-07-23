@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>商品詳情 | こばやし選物所</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>商品詳情</h1>
+    <a href="index.html" class="cart-btn">← 回到選物</a>
+  </header>
+
+  <main class="product-detail-container">
+    <img id="product-img" src="" alt="商品圖片" class="detail-img">
+    <h2 id="product-name"></h2>
+    <p id="product-price"></p>
+    <p id="product-description">載入中...</p>
+    <button id="add-to-cart-btn" class="checkout-btn">加入購物車</button>
+  </main>
+
+  <script>
+    // 模擬商品資料（未來可以改成從 JSON 載入）
+    const products = {
+      "Pocky 巧克力棒": {
+        price: 59,
+        img: "https://i.imgur.com/0DE1rOH.jpg",
+        description: "經典巧克力風味的Pocky棒，日本原裝進口，酥脆可口超涮嘴 🍫"
+      },
+      "Calbee 薯條": {
+        price: 89,
+        img: "https://i.imgur.com/2nCt3Sbl.jpg",
+        description: "人氣熱銷的Calbee薯條，鹹香酥脆，搭配啤酒一級棒 🍟🍺"
+      }
+    };
+
+    // 從網址取得 name 參數
+    const urlParams = new URLSearchParams(window.location.search);
+    const name = urlParams.get("name");
+
+    if (name && products[name]) {
+      const product = products[name];
+      document.getElementById("product-img").src = product.img;
+      document.getElementById("product-name").textContent = name;
+      document.getElementById("product-price").textContent = `NT$${product.price}`;
+      document.getElementById("product-description").textContent = product.description;
+
+      document.getElementById("add-to-cart-btn").addEventListener("click", () => {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const index = cart.findIndex(item => item.name === name);
+        if (index > -1) {
+          cart[index].quantity += 1;
+        } else {
+          cart.push({ name, price: product.price, quantity: 1 });
+        }
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert(`${name} 已加入購物車！`);
+      });
+    } else {
+      document.querySelector("main").innerHTML = "<p>找不到這個商品 😢</p>";
+    }
+  </script>
+</body>
+</html>
