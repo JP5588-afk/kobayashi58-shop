@@ -317,3 +317,25 @@ h1 {
 .line-btn:hover {
   background-color: #059944;
 }
+
+.cart-btn,
+.line-btn {
+  display: inline-block;
+  padding: 10px 16px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 12px;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  min-width: 110px; /* ✅ 固定寬度 */
+  box-sizing: border-box;
+}
+
+.cart-btn {
+  background-color: #ff69b4; /* 粉紅 */
+}
+
+.line-btn {
+  background-color: #00c300; /* LINE 綠 */
+}
