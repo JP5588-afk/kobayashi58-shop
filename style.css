@@ -339,3 +339,15 @@ h1 {
 .line-btn {
   background-color: #00c300; /* LINE 綠 */
 }
+
+@media (max-width: 480px) {
+  .button-group {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .button-group a {
+    width: 100%;
+    max-width: 220px;
+  }
+}
