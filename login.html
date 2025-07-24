@@ -2,10 +2,8 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>LINE 登入中...</title>
+  <title>歡迎光臨 - Kobayashi Shop</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <style>
     body {
       background-color: #fff0f5;
@@ -16,7 +14,7 @@
       height: 100vh;
       margin: 0;
     }
-    .login-box {
+    .welcome-box {
       background: white;
       padding: 30px;
       border-radius: 16px;
@@ -24,53 +22,35 @@
       text-align: center;
       max-width: 320px;
     }
-    .login-box h2 {
-      font-size: 20px;
+    .welcome-box h1 {
+      font-size: 22px;
       color: #c71585;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
-    .success-msg {
-      font-size: 18px;
-      font-weight: bold;
-      color: #28a745;
+    .welcome-box p {
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .welcome-box .btn {
+      display: inline-block;
+      background-color: #c71585;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+    .welcome-box .btn:hover {
+      background-color: #a0136e;
     }
   </style>
 </head>
 <body>
-  <div class="login-box">
-    <h2 id="status-text">登入中，請稍候...</h2>
+  <div class="welcome-box">
+    <h1>歡迎光臨</h1>
+    <p>這裡是 <strong>Kobayashi Shop</strong>，讓你輕鬆選購日本零食與小物！</p>
+    <a class="btn" href="index.html">開始逛逛</a>
   </div>
-
-  <script>
-    const liffId = "2007810314-zxZgXZ32";
-
-    async function main() {
-      try {
-        await liff.init({ liffId });
-
-        if (!liff.isLoggedIn()) {
-          liff.login();
-        } else {
-          const profile = await liff.getProfile();
-          const name = profile.displayName;
-
-          document.getElementById("status-text").innerHTML = `歡迎 <span class="success-msg">${name}</span> 已登入！`;
-
-          // 儲存使用者資訊，可用於 checkout.html 使用
-          localStorage.setItem("lineName", name);
-          localStorage.setItem("lineId", profile.userId);
-
-          setTimeout(() => {
-            window.location.href = "index.html";
-          }, 1500);
-        }
-      } catch (error) {
-        console.error("LIFF 初始化失敗", error);
-        document.getElementById("status-text").textContent = "登入失敗，請稍後再試。";
-      }
-    }
-
-    main();
-  </script>
 </body>
 </html>
