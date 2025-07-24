@@ -1,3 +1,4 @@
+style.css
 body {
   font-family: "Noto Sans TC", sans-serif;
   background: linear-gradient(to bottom, #ffe4ec, #fff0f5);
@@ -16,6 +17,7 @@ body {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
 }
 
+/* 新增這段在 <style> 區域內 */
 .back-top-btn {
   position: fixed;
   top: 16px;
@@ -30,83 +32,19 @@ body {
   z-index: 999;
 }
 
+.back-top-btn {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  font-size: 24px;
+  text-decoration: none;
+  color: #ff69b4;
+  font-weight: bold;
+  background: none;
+  border-radius: 50%;
+  padding: 6px 12px;
+  z-index: 999;
+}
 main {
   will-change: transform;
-}
-
-#store-name-wrapper {
-  display: none;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-#store-name-wrapper.show {
-  display: block;
-  opacity: 1;
-}
-
-.form-group select,
-.form-group input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 12px; /* ⭕ 修改為與圖二相同的圓角 */
-  font-size: 16px;
-  box-sizing: border-box;
-  border: 2px solid #ff69b4;
-  background-color: #fff;
-  color: #444;
-  font-family: "Noto Sans TC", sans-serif;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-
-/* ✅ 還原 select 框原生樣式箭頭 */
-.form-group select {
-  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 8L0.803847 0.5H11.1962L6 8Z' fill='%23ff69b4'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  background-size: 12px 8px;
-}
-
-/* iOS Safari 修正：點選時讓選單更穩定 */
-select:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.2);
-}
-
-/* 輸入框 focus 效果 */
-input:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.2);
-}
-
-/* 手機 RWD 優化 */
-@media (max-width: 480px) {
-  #checkout-form {
-    padding: 20px;
-    margin: 20px 16px;
-  }
-  .form-group select,
-  .form-group input {
-    font-size: 18px;
-  }
-  .checkout-btn {
-  display: block;
-  width: 100%;
-  padding: 12px;
-  margin-top: 20px;
-  background-color: #ff69b4;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.checkout-btn:hover {
-  background-color: #ff85c1;
-
 }
