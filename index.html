@@ -159,13 +159,18 @@
   function updateCartCount() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
-    document.getElementById("cart-count").textContent = totalQty;
+    const badge = document.getElementById("cart-count");
+    if (badge) {
+      badge.textContent = totalQty;
+    }
   }
 
-  // 頁面初次載入時
   document.addEventListener("DOMContentLoaded", updateCartCount);
 
-  // ✅ 從上一頁返回也要同步購物車
+  // ✅ 新增 focus 事件，回來時強制更新（最保險）
+  window.addEventListener("focus", updateCartCount);
+
+  // ✅ 補上 pageshow（部分瀏覽器有效）
   window.addEventListener("pageshow", updateCartCount);
 </script>
 </body>
