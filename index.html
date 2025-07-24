@@ -67,6 +67,17 @@
     .button-group .line-btn:hover {
       background-color: #059944;
     }
+
+    /* 數量選單樣式 */
+    .qty-select {
+      margin-top: 8px;
+      padding: 8px;
+      font-size: 14px;
+      border-radius: 6px;
+      border: 1px solid #ff69b4;
+      width: 100%;
+      box-sizing: border-box;
+    }
   </style>
 </head>
 <body>
@@ -92,6 +103,9 @@
         <h2>Pocky 巧克力棒</h2>
       </a>
       <p>NT$59</p>
+      <select class="qty-select">
+        ${[...Array(10).keys()].map(i => `<option value="${i + 1}">${i + 1}</option>`).join('')}
+      </select>
       <button onclick="addToCart(this)">加入購物車</button>
     </div>
 
@@ -103,6 +117,18 @@
         <h2>Calbee 薯條</h2>
       </a>
       <p>NT$89</p>
+      <select class="qty-select">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+      </select>
       <button onclick="addToCart(this)">加入購物車</button>
     </div>
   </main>
@@ -115,13 +141,14 @@
       const name = product.querySelector('h2').innerText;
       const price = parseInt(product.querySelector('p').innerText.replace('NT$', ''));
       const img = product.querySelector('img').src;
+      const qty = parseInt(product.querySelector('.qty-select').value); // ✅ 選擇的數量
 
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
       const existingItem = cart.find(item => item.name === name);
       if (existingItem) {
-        existingItem.quantity += 1;
+        existingItem.quantity += qty;
       } else {
-        cart.push({ name, price, quantity: 1, img });
+        cart.push({ name, price, quantity: qty, img });
       }
       localStorage.setItem("cart", JSON.stringify(cart));
 
