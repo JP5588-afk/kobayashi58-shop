@@ -1,4 +1,3 @@
-
 body {
   font-family: "Noto Sans TC", sans-serif;
   background-color: #fff0f5;
@@ -27,51 +26,7 @@ h1 {
   color: #fff8f8;
 }
 
-.cart-btn,
-.line-btn {
-  display: inline-block;
-  padding: 10px 16px;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 12px;
-  text-align: center;
-  text-decoration: none;
-  color: white;
-  min-width: 110px;
-  box-sizing: border-box;
-}
-
-.cart-btn {
-  background-color: #ff69b4;
-}
-
-.line-btn {
-  background-color: #00c300;
-}
-
-.line-btn:hover {
-  background-color: #059944;
-}
-
-.cart-float {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  font-size: 24px;
-  cursor: pointer;
-  z-index: 999;
-}
-
-.cart-float span {
-  background: red;
-  color: white;
-  border-radius: 50%;
-  padding: 2px 6px;
-  font-size: 14px;
-  margin-left: 4px;
-  vertical-align: top;
-}
-
+/* ⬇️ 右上角購物車按鈕 */
 .detail-cart-float {
   position: fixed;
   top: 12px;
@@ -79,10 +34,9 @@ h1 {
   font-size: 24px;
   color: #ff69b4;
   text-decoration: none;
-  background: none;         /* 移除背景 */
-  padding: 0;               /* 移除內距 */
+  background: none;
+  padding: 0;
   z-index: 999;
-
 }
 
 .detail-cart-float .badge {
@@ -98,14 +52,7 @@ h1 {
   font-weight: bold;
 }
 
-.fly-img {
-  position: absolute;
-  z-index: 9999;
-  width: 50px;
-  transition: all 0.7s ease-in-out;
-  pointer-events: none;
-}
-
+/* ⬇️ 加入購物車＋下拉選單美化＋尺寸一致 */
 .detail-action-group {
   display: flex;
   justify-content: center;
@@ -113,13 +60,17 @@ h1 {
   gap: 12px;
   margin-top: 20px;
   flex-wrap: nowrap;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .detail-action-group select.qty-select,
 .detail-action-group button.checkout-btn {
-  flex: 1 1 45%;
-  min-width: 120px;
+  flex: 1;
+  min-width: 140px;
   box-sizing: border-box;
+  font-size: 16px;
 }
 
 .qty-select {
@@ -141,12 +92,21 @@ h1 {
   color: white;
   padding: 10px 14px;
   border-radius: 8px;
-  font-size: 14px;
   font-weight: bold;
   border: none;
   cursor: pointer;
+  transition: background 0.2s ease;
 }
 
 .detail-action-group button.checkout-btn:hover {
   background-color: #ff1493;
+}
+
+/* 🛒 動畫圖片飛入 */
+.fly-img {
+  position: absolute;
+  z-index: 9999;
+  width: 50px;
+  transition: all 0.7s ease-in-out;
+  pointer-events: none;
 }
