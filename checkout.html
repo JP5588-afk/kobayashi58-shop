@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -22,10 +23,6 @@
       text-decoration: none;
       color: #ff69b4;
       font-weight: bold;
-      transition: color 0.2s;
-    }
-    .back-btn:hover {
-      color: #e91e63;
     }
 
     h2 {
@@ -49,35 +46,20 @@
     .form-group select {
       width: 100%;
       padding: 10px;
-      border-radius: 8px;
+      border-radius: 10px;
       border: 2px solid #ff69b4;
       box-sizing: border-box;
       font-size: 16px;
       background-color: #fff;
+      color: #444;
     }
 
-    /* 美化 select 下拉箭頭 */
-    select {
-      appearance: none;
-      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23ff69b4' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 10px center;
-      background-size: 10px;
-      cursor: pointer;
+    .form-group select {
+      appearance: auto;
     }
 
-    /* 移除文字和電話欄位的上下箭頭 */
-    input[type="text"]::-webkit-inner-spin-button,
-    input[type="text"]::-webkit-outer-spin-button,
-    input[type="tel"]::-webkit-inner-spin-button,
-    input[type="tel"]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-
-    input[type="text"],
-    input[type="tel"] {
-      -moz-appearance: textfield;
+    #store-name-wrapper {
+      display: none;
     }
 
     .checkout-actions {
@@ -92,7 +74,9 @@
       border: none;
       border-radius: 10px;
       font-weight: bold;
+      font-size: 16px;
       cursor: pointer;
+      width: 100%;
     }
 
     .empty-cart-message {
@@ -102,8 +86,9 @@
     }
   </style>
 </head>
+
 <body>
-  <a href="index.html" class="back-btn">←</a>
+  <a href="cart.html" class="back-btn">←</a>
 
   <form id="checkout-form">
     <h2>結帳資訊</h2>
@@ -133,15 +118,24 @@
       <label for="delivery">取貨方式：</label>
       <select id="delivery" name="delivery" required>
         <option value="">請選擇</option>
-        <option value="超商">四大超商</option>
+        <option value="7-11">7-11</option>
+        <option value="全家">全家</option>
+        <option value="OK">OK</option>
+        <option value="萊爾富">萊爾富</option>
         <option value="蝦皮">蝦皮店到店</option>
-        <option value="其他">其他</option>
+        <option value="自取">自取</option>
       </select>
     </div>
 
-    <div class="form-group" id="store-name-wrapper" style="display: none;">
+    <div class="form-group" id="store-name-wrapper">
       <label for="store">請輸入店名：</label>
-      <input type="text" id="store" name="store" placeholder="例如：711-台北忠孝店" />
+      <input
+        type="text"
+        id="store"
+        name="store"
+        placeholder="例如：711-台中建成店"
+        autocomplete="off"
+      />
     </div>
 
     <div id="checkout-items">
@@ -166,30 +160,38 @@
       const cartPreview = document.getElementById("cart-preview");
       const submitBtn = document.getElementById("submit-btn");
 
-      delivery.addEventListener("change", () => {
-        storeWrapper.style.display = (delivery.value === "超商" || delivery.value === "蝦皮") ? "block" : "none";
-      });
+      function toggleStoreInput() {
+        const value = delivery.value;
+        if (["7-11", "全家", "OK", "萊爾富", "蝦皮"].includes(value)) {
+          storeWrapper.style.display = "block";
+        } else {
+          storeWrapper.style.display = "none";
+        }
+      }
+
+      delivery.addEventListener("change", toggleStoreInput);
+      toggleStoreInput();
 
       let total = 0;
       if (cart.length === 0) {
-        cartPreview.innerHTML = <p class="empty-cart-message">目前購物車是空的喔 🛒</p>;
+        cartPreview.innerHTML = `<p class="empty-cart-message">目前購物車是空的喔 🛒</p>`;
         submitBtn.disabled = true;
         submitBtn.style.backgroundColor = "#ccc";
         submitBtn.style.cursor = "not-allowed";
       } else {
         cart.forEach(item => {
           total += item.price * item.quantity;
-          cartPreview.innerHTML += <p>${item.name} ×${item.quantity} — NT$${item.price * item.quantity}</p>;
+          cartPreview.innerHTML += `<p>${item.name} ×${item.quantity} — NT$${item.price * item.quantity}</p>`;
         });
-        cartPreview.innerHTML += <p style="margin-top: 8px; font-weight: bold;">總金額：NT$${total.toLocaleString("zh-Hant-TW")}</p>;
+        cartPreview.innerHTML += `<p style="margin-top: 8px; font-weight: bold;">總金額：NT$${total.toLocaleString("zh-Hant-TW")}</p>`;
       }
 
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
         if (cart.length === 0) return alert("購物車為空，無法結帳");
 
-        document.getElementById("items-data").value = cart.map(i => ${i.name} x${i.quantity}).join(", ");
-        document.getElementById("total-data").value = NT$${total};
+        document.getElementById("items-data").value = cart.map(i => `${i.name} x${i.quantity}`).join(", ");
+        document.getElementById("total-data").value = `NT$${total}`;
 
         const formData = new FormData(form);
         const paymentMethod = formData.get("payment");
