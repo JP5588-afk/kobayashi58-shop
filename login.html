@@ -9,11 +9,17 @@
   <h2>登入中，請稍候...</h2>
 
   <script>
-    const liffId = "2007810314-zxZgXZ32"; // 使用完整的 LIFF ID
+    const liffId = "2007810314-zxZgXZ32"; // 你的 LIFF ID
 
     async function main() {
       try {
-        await liff.init({ liffId });  // ✅ 用變數，不要再寫死文字
+        await liff.init({ liffId });
+
+        // ⛔ 如果不是在 LINE App 開啟，就提示用戶
+        if (!liff.isInClient()) {
+          alert("請從 LINE 中開啟本頁面才能登入！");
+          return;
+        }
 
         if (!liff.isLoggedIn()) {
           liff.login();
