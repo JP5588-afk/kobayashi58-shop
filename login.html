@@ -9,18 +9,18 @@
   <h2>登入中，請稍候...</h2>
 
   <script>
-    const liffId = "2007810314"; // 替換成你的 Channel ID
+    const liffId = "2007810314-zxZgXZ32"; // ✅ 正確設定 LIFF ID
 
     async function main() {
       try {
-        liff.init({ liffId: '2007810314-zxZgXZ32' })
+        await liff.init({ liffId }); // ✅ 使用上面的變數
 
         if (!liff.isLoggedIn()) {
           liff.login();
         } else {
           const profile = await liff.getProfile();
           alert(`歡迎，${profile.displayName} 已登入！`);
-          window.location.href = "index.html"; // 登入後跳轉回首頁
+          window.location.href = "index.html"; // ✅ 登入成功後跳轉回首頁
         }
 
       } catch (error) {
