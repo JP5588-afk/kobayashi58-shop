@@ -84,7 +84,6 @@
       margin-top: 20px;
     }
 
-    /* ✅ 不要動畫、不要 transition，最穩定 */
     #store-name-wrapper {
       display: none;
     }
@@ -127,9 +126,16 @@
       </select>
     </div>
 
+    <!-- 顯示輸入店名欄位（只有選超商/蝦皮才出現） -->
     <div class="form-group" id="store-name-wrapper">
       <label for="store">請輸入店名：</label>
-      <input type="text" id="store" name="store" placeholder="例如：7-11 台北忠孝店" />
+      <input
+        type="text"
+        id="store"
+        name="store"
+        placeholder="例如：711-台中建成店"
+        autocomplete="off"
+      />
     </div>
 
     <div id="checkout-items">
@@ -154,7 +160,7 @@
       const cartPreview = document.getElementById("cart-preview");
       const submitBtn = document.getElementById("submit-btn");
 
-      // ✅ 無動畫純顯示邏輯
+      // ✅ 控制店名欄位顯示
       function toggleStoreInput() {
         const value = delivery.value;
         if (value === "超商" || value === "蝦皮") {
