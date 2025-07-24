@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>こばやし選物所</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
   <style>
     .cart-float {
       position: fixed;
@@ -32,6 +32,39 @@
       transition: all 0.7s ease-in-out;
       pointer-events: none;
     }
+
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .button-group .cart-btn,
+    .button-group .line-btn {
+      flex: 1;
+      max-width: 160px;
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 12px;
+      text-decoration: none;
+      color: white;
+      box-sizing: border-box;
+    }
+
+    .button-group .cart-btn {
+      background-color: #ff69b4;
+    }
+
+    .button-group .line-btn {
+      background-color: #00c300;
+    }
+
+    .button-group .line-btn:hover {
+      background-color: #059944;
+    }
   </style>
 </head>
 <body>
@@ -42,8 +75,10 @@
   <header>
     <h1>こばやし選物所</h1>
     <p class="tagline">精選日系零食與小物，每一樣都想抱回家 🍡</p>
-    <a href="notice.html" class="cart-btn">📌 訂購須知</a>
-    <a href="https://line.me/ti/g/C9W7CPNKNQ" class="line-btn" target="_blank">💬 LINE群</a>
+    <div class="button-group">
+      <a href="notice.html" class="cart-btn">📌 訂購須知</a>
+      <a href="https://line.me/ti/g/C9W7CPNKNQ" class="line-btn" target="_blank">💬 LINE群</a>
+    </div>
   </header>
 
   <main class="product-grid">
