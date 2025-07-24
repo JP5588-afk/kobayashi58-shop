@@ -351,3 +351,56 @@ h1 {
     max-width: 220px;
   }
 }
+
+<!-- ✅ 修改 header 區塊按鈕為左右一排 -->
+<div class="button-group">
+  <a href="notice.html" class="cart-btn"><span>📌 訂購須知</span></a>
+  <a href="https://line.me/ti/g/C9W7CPNKNQ" class="line-btn" target="_blank"><span>💬 LINE群組</span></a>
+</div>
+
+<!-- ✅ 修改每個產品加入購物車按鈕區塊 -->
+<div class="product">
+  <a href="product.html?name=Pocky%20巧克力棒">
+    <img src="https://i.imgur.com/xkU43cF.png" alt="Pocky">
+  </a>
+  <a href="product.html?name=Pocky%20巧克力棒">
+    <h2>Pocky 巧克力棒</h2>
+  </a>
+  <p>NT$59</p>
+
+  <!-- 多一個數量選單 -->
+  <select class="qty-select">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+  </select>
+
+  <button onclick="addToCart(this)">加入購物車</button>
+</div>
+
+<!-- ✅ 在 style.css 加入這段 -->
+.qty-select {
+  margin-top: 8px;
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ff69b4;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ✅ 按鈕橫排強化保留 */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
