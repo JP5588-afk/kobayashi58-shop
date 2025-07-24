@@ -1,86 +1,106 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>結帳頁面 | こばやし選物所</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <a href="cart.html" class="back-top-btn">←</a>
-  <form id="checkout-form" action="https://formspree.io/f/your-id" method="POST">
-    <h2 style="text-align:center; color:#ff69b4; font-weight: bold;">結帳資訊</h2>
+  <main>
+    <form id="checkout-form">
+      <h2 style="text-align: center; color: #ff69b4; font-weight: bold;">結帳資訊</h2>
 
-    <div class="form-group">
-      <label for="name">購買人姓名：</label>
-      <input type="text" name="name" required />
-    </div>
+      <div class="form-group">
+        <label for="buyer-name">購買人姓名：</label>
+        <input type="text" id="buyer-name" name="buyer-name" required>
+      </div>
 
-    <div class="form-group">
-      <label for="phone">購買人電話：</label>
-      <input type="tel" name="phone" required />
-    </div>
+      <div class="form-group">
+        <label for="buyer-phone">購買人電話：</label>
+        <input type="tel" id="buyer-phone" name="buyer-phone" required>
+      </div>
 
-    <div class="form-group">
-      <label for="payment">支付方式：</label>
-      <select name="payment" required>
-        <option value="">請選擇</option>
-        <option value="銀行轉帳">銀行轉帳</option>
-        <option value="信用卡">信用卡</option>
-        <option value="全支付">全支付</option>
-        <option value="貨到付款">貨到付款</option>
-      </select>
-    </div>
+      <div class="form-group">
+        <label for="payment-method">支付方式：</label>
+        <select id="payment-method" name="payment-method" required>
+          <option value="">請選擇</option>
+          <option value="銀行轉帳">銀行轉帳</option>
+          <option value="信用卡">信用卡</option>
+          <option value="全支付">全支付</option>
+          <option value="貨到付款">貨到付款</option>
+        </select>
+      </div>
 
-    <div class="form-group">
-      <label for="delivery">取貨方式：</label>
-      <select name="delivery" id="delivery-method" required>
-        <option value="">請選擇</option>
-        <option value="7-11">7-11</option>
-        <option value="全家">全家</option>
-        <option value="OK">OK</option>
-        <option value="萊爾富">萊爾富</option>
-        <option value="蝦皮店到店">蝦皮店到店</option>
-        <option value="面交">自取（面交）</option>
-      </select>
-    </div>
+      <div class="form-group">
+        <label for="delivery-method">取貨方式：</label>
+        <select id="delivery-method" name="delivery-method" required>
+          <option value="">請選擇</option>
+          <option value="7-11">7-11</option>
+          <option value="全家">全家</option>
+          <option value="OK">OK</option>
+          <option value="萊爾富">萊爾富</option>
+          <option value="蝦皮店到店">蝦皮店到店</option>
+          <option value="面交">自取</option>
+        </select>
+      </div>
 
-    <div class="form-group" id="store-name-wrapper">
-      <label for="store">請輸入店名：</label>
-      <input type="text" name="store" placeholder="例如：711-台中建成店" />
-    </div>
+      <div class="form-group" id="store-name-wrapper">
+        <label for="store-name">請輸入店名：</label>
+        <input type="text" id="store-name" name="store-name" placeholder="例如：711-台中建成店">
+      </div>
 
-    <div class="form-group" id="cart-details">
-      <h3 style="color:#ff1493; text-align:center;">購物車明細</h3>
-      <p id="cart-items">目前購物車是空的喔 🛖</p>
-    </div>
+      <div class="cart-summary">
+        <h3 style="color: #ff1493; text-align: center;">購物車明細</h3>
+        <div id="cart-items"></div>
+        <p style="font-weight: bold; font-size: 16px;">總金額：<span id="total-amount">NT$0</span></p>
+      </div>
 
-    <button type="submit" class="checkout-btn">前往結帳</button>
-  </form>
+      <button type="submit" class="checkout-btn">前往結帳</button>
+    </form>
+  </main>
 
   <script>
-    const deliverySelect = document.getElementById("delivery-method");
-    const storeNameWrapper = document.getElementById("store-name-wrapper");
+    // 顯示 / 隱藏輸入店名欄位
+    const deliverySelect = document.getElementById('delivery-method');
+    const storeWrapper = document.getElementById('store-name-wrapper');
 
-    deliverySelect.addEventListener("change", function () {
-      const val = this.value;
-      if (["7-11", "全家", "OK", "萊爾富", "蝦皮店到店"].includes(val)) {
-        storeNameWrapper.classList.add("show");
+    deliverySelect.addEventListener('change', () => {
+      const value = deliverySelect.value;
+      if (["7-11", "全家", "OK", "萊爾富", "蝦皮店到店"].includes(value)) {
+        storeWrapper.classList.add('show');
       } else {
-        storeNameWrapper.classList.remove("show");
+        storeWrapper.classList.remove('show');
       }
     });
 
-    // 假設這裡抓 localStorage 購物車內容（可根據你的購物車資料調整）
-    const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
-    const cartDetails = document.getElementById("cart-items");
-    if (cartItems.length > 0) {
+    // 購物車內容（從 localStorage 取得）
+    const cartItemsContainer = document.getElementById('cart-items');
+    const totalAmount = document.getElementById('total-amount');
+
+    function renderCart() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cartItemsContainer.innerHTML = '';
       let total = 0;
-      cartDetails.innerHTML = cartItems.map(item => {
-        total += item.price * item.qty;
-        return `${item.name} x${item.qty} — NT$${item.price * item.qty}`;
-      }).join("<br>") + `<br><br><strong>總金額：NT$${total}</strong>`;
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML = '<p style="text-align:center; color:gray;">目前購物車是空的喔 🛒</p>';
+        return;
+      }
+      cart.forEach(item => {
+        const subtotal = item.price * item.quantity;
+        total += subtotal;
+        const div = document.createElement('div');
+        div.style.marginBottom = '8px';
+        div.textContent = `${item.name} ×${item.quantity} — NT$${subtotal}`;
+        cartItemsContainer.appendChild(div);
+      });
+      totalAmount.textContent = `NT$${total}`;
     }
+    renderCart();
   </script>
 </body>
+
 </html>
