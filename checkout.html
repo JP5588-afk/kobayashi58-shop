@@ -166,9 +166,9 @@
   const value = delivery.value;
   const needInput = ["7-11", "全家", "OK", "萊爾富", "蝦皮店到店"];
   if (needInput.includes(value)) {
-    storeWrapper.style.display = "block";
+    storeWrapper.classList.add("show");
   } else {
-    storeWrapper.style.display = "none";
+    storeWrapper.classList.remove("show");
   }
 }
 
