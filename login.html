@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>LINE 登入</title>
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+</head>
+<body>
+  <h2>登入中，請稍候...</h2>
+  <script>
+    const liffId = "2007810314"; // 用你的 LINE LIFF ID
+
+    async function main() {
+      await liff.init({ liffId });
+      if (!liff.isLoggedIn()) {
+        liff.login();
+      } else {
+        const profile = await liff.getProfile();
+        alert(`您好，${profile.displayName}`);
+        // localStorage.setItem("lineUserId", profile.userId); // 如果你要記錄使用者
+        window.location.href = "index.html"; // 登入後導回首頁
+      }
+    }
+
+    main();
+  </script>
+</body>
+</html>
