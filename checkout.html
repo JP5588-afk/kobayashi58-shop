@@ -1,27 +1,38 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>結帳頁面 | こばやし選物所</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
   <style>
     body {
+      background-color: #fff0f5;
       font-family: "Noto Sans TC", sans-serif;
-      background: linear-gradient(to bottom, #ffe4ec, #fff0f5);
+      padding: 20px;
       color: #444;
-      margin: 0;
-      padding: 0;
+      position: relative;
     }
 
-    #checkout-form {
-      max-width: 400px;
-      margin: 30px auto;
-      background-color: #fff;
-      padding: 24px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    .back-btn {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      font-size: 24px;
+      text-decoration: none;
+      color: #ff69b4;
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+    .back-btn:hover {
+      color: #e91e63;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 24px;
+      margin-top: 48px;
+      color: #ff69b4;
     }
 
     .form-group {
@@ -38,163 +49,186 @@
     .form-group select {
       width: 100%;
       padding: 10px;
-      font-size: 16px;
-      border-radius: 10px;
+      border-radius: 8px;
       border: 2px solid #ff69b4;
       box-sizing: border-box;
+      font-size: 16px;
       background-color: #fff;
-      color: #444;
     }
 
-    .form-group select {
-      appearance: auto;
+    /* 美化 select 下拉箭頭 */
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23ff69b4' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 10px;
+      cursor: pointer;
     }
 
-    #store-name-wrapper {
-      display: none;
-      opacity: 0;
-      transition: opacity 0.3s;
+    /* 移除文字和電話欄位的上下箭頭 */
+    input[type="text"]::-webkit-inner-spin-button,
+    input[type="text"]::-webkit-outer-spin-button,
+    input[type="tel"]::-webkit-inner-spin-button,
+    input[type="tel"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
     }
 
-    #store-name-wrapper.show {
-      display: block;
-      opacity: 1;
+    input[type="text"],
+    input[type="tel"] {
+      -moz-appearance: textfield;
     }
 
-    .checkout-btn {
-      display: block;
-      width: 100%;
-      padding: 12px;
+    .checkout-actions {
       margin-top: 20px;
+      text-align: center;
+    }
+
+    .checkout-actions button {
+      padding: 12px 24px;
       background-color: #ff69b4;
       color: white;
-      font-size: 16px;
-      font-weight: bold;
       border: none;
       border-radius: 10px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    .checkout-btn:hover {
-      background-color: #ff85c1;
-    }
-
-    .cart-summary {
-      margin-top: 30px;
-      padding: 16px;
-      border: 2px solid #ffb6c1;
-      border-radius: 10px;
-      background-color: #fff5f8;
-    }
-
-    .back-top-btn {
-      position: fixed;
-      top: 16px;
-      left: 16px;
-      font-size: 24px;
-      text-decoration: none;
-      color: #ff69b4;
       font-weight: bold;
-      background: none;
-      border-radius: 50%;
-      padding: 6px 12px;
-      z-index: 999;
+      cursor: pointer;
+    }
+
+    .empty-cart-message {
+      color: gray;
+      text-align: center;
+      margin-top: 20px;
     }
   </style>
 </head>
-
 <body>
-  <a href="cart.html" class="back-top-btn">←</a>
-  <main>
-    <form id="checkout-form">
-      <h2 style="text-align: center; color: #ff69b4; font-weight: bold;">結帳資訊</h2>
+  <a href="index.html" class="back-btn">←</a>
 
-      <div class="form-group">
-        <label for="buyer-name">購買人姓名：</label>
-        <input type="text" id="buyer-name" name="buyer-name" required>
-      </div>
+  <form id="checkout-form">
+    <h2>結帳資訊</h2>
 
-      <div class="form-group">
-        <label for="buyer-phone">購買人電話：</label>
-        <input type="tel" id="buyer-phone" name="buyer-phone" required>
-      </div>
+    <div class="form-group">
+      <label for="name">購買人姓名：</label>
+      <input type="text" id="name" name="name" required />
+    </div>
 
-      <div class="form-group">
-        <label for="payment-method">支付方式：</label>
-        <select id="payment-method" name="payment-method" required>
-          <option value="">請選擇</option>
-          <option value="銀行轉帳">銀行轉帳</option>
-          <option value="信用卡">信用卡</option>
-          <option value="全支付">全支付</option>
-          <option value="貨到付款">貨到付款</option>
-        </select>
-      </div>
+    <div class="form-group">
+      <label for="phone">購買人電話：</label>
+      <input type="tel" id="phone" name="phone" required />
+    </div>
 
-      <div class="form-group">
-        <label for="delivery-method">取貨方式：</label>
-        <select id="delivery-method" name="delivery-method" required>
-          <option value="">請選擇</option>
-          <option value="7-11">7-11</option>
-          <option value="全家">全家</option>
-          <option value="OK">OK</option>
-          <option value="萊爾富">萊爾富</option>
-          <option value="蝦皮店到店">蝦皮店到店</option>
-          <option value="自取">自取</option>
-        </select>
-      </div>
+    <div class="form-group">
+      <label for="payment">支付方式：</label>
+      <select id="payment" name="payment" required>
+        <option value="">請選擇</option>
+        <option value="銀行轉帳">銀行轉帳</option>
+        <option value="信用卡">信用卡</option>
+        <option value="全支付">全支付</option>
+        <option value="貨到付款">貨到付款</option>
+      </select>
+    </div>
 
-      <div class="form-group" id="store-name-wrapper">
-        <label for="store-name">請輸入店名：</label>
-        <input type="text" id="store-name" name="store-name" placeholder="例如：711-台中建成店">
-      </div>
+    <div class="form-group">
+      <label for="delivery">取貨方式：</label>
+      <select id="delivery" name="delivery" required>
+        <option value="">請選擇</option>
+        <option value="超商">四大超商</option>
+        <option value="蝦皮">蝦皮店到店</option>
+        <option value="其他">其他</option>
+      </select>
+    </div>
 
-      <div class="cart-summary">
-        <h3 style="color: #ff1493; text-align: center;">購物車明細</h3>
-        <div id="cart-items"></div>
-        <p style="font-weight: bold; font-size: 16px;">總金額：<span id="total-amount">NT$0</span></p>
-      </div>
+    <div class="form-group" id="store-name-wrapper" style="display: none;">
+      <label for="store">請輸入店名：</label>
+      <input type="text" id="store" name="store" placeholder="例如：711-台北忠孝店" />
+    </div>
 
-      <button type="submit" class="checkout-btn">前往結帳</button>
-    </form>
-  </main>
+    <div id="checkout-items">
+      <h3>購物車明細</h3>
+      <div id="cart-preview"></div>
+    </div>
+
+    <input type="hidden" name="items" id="items-data" />
+    <input type="hidden" name="total" id="total-data" />
+
+    <div class="checkout-actions">
+      <button type="submit" id="submit-btn">前往結帳</button>
+    </div>
+  </form>
 
   <script>
-    const deliverySelect = document.getElementById('delivery-method');
-    const storeWrapper = document.getElementById('store-name-wrapper');
+    document.addEventListener("DOMContentLoaded", () => {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const delivery = document.getElementById("delivery");
+      const storeWrapper = document.getElementById("store-name-wrapper");
+      const form = document.getElementById("checkout-form");
+      const cartPreview = document.getElementById("cart-preview");
+      const submitBtn = document.getElementById("submit-btn");
 
-    deliverySelect.addEventListener('change', () => {
-      const value = deliverySelect.value;
-      if (["7-11", "全家", "OK", "萊爾富", "蝦皮店到店"].includes(value)) {
-        storeWrapper.classList.add('show');
-      } else {
-        storeWrapper.classList.remove('show');
-      }
-    });
+      delivery.addEventListener("change", () => {
+        storeWrapper.style.display = (delivery.value === "超商" || delivery.value === "蝦皮") ? "block" : "none";
+      });
 
-    const cartItemsContainer = document.getElementById('cart-items');
-    const totalAmount = document.getElementById('total-amount');
-
-    function renderCart() {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      cartItemsContainer.innerHTML = '';
       let total = 0;
       if (cart.length === 0) {
-        cartItemsContainer.innerHTML = '<p style="text-align:center; color:gray;">目前購物車是空的喔 🛒</p>';
-        return;
+        cartPreview.innerHTML = <p class="empty-cart-message">目前購物車是空的喔 🛒</p>;
+        submitBtn.disabled = true;
+        submitBtn.style.backgroundColor = "#ccc";
+        submitBtn.style.cursor = "not-allowed";
+      } else {
+        cart.forEach(item => {
+          total += item.price * item.quantity;
+          cartPreview.innerHTML += <p>${item.name} ×${item.quantity} — NT$${item.price * item.quantity}</p>;
+        });
+        cartPreview.innerHTML += <p style="margin-top: 8px; font-weight: bold;">總金額：NT$${total.toLocaleString("zh-Hant-TW")}</p>;
       }
-      cart.forEach(item => {
-        const subtotal = item.price * item.quantity;
-        total += subtotal;
-        const div = document.createElement('div');
-        div.style.marginBottom = '8px';
-        div.textContent = `${item.name} ×${item.quantity} — NT$${subtotal}`;
-        cartItemsContainer.appendChild(div);
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (cart.length === 0) return alert("購物車為空，無法結帳");
+
+        document.getElementById("items-data").value = cart.map(i => ${i.name} x${i.quantity}).join(", ");
+        document.getElementById("total-data").value = NT$${total};
+
+        const formData = new FormData(form);
+        const paymentMethod = formData.get("payment");
+
+        try {
+          const res = await fetch("https://formspree.io/f/mgvzarlo", {
+            method: "POST",
+            body: formData,
+            headers: { Accept: "application/json" },
+          });
+
+          if (res.ok) {
+            localStorage.removeItem("cart");
+
+            const query = new URLSearchParams({
+              name: formData.get("name"),
+              phone: formData.get("phone"),
+              payment: formData.get("payment"),
+              items: formData.get("items"),
+              total: formData.get("total")
+            }).toString();
+
+            if (paymentMethod === "銀行轉帳") {
+              window.location.href = "bank-transfer.html?" + query;
+            } else if (paymentMethod === "全支付") {
+              window.location.href = "pay.html";
+            } else {
+              alert("訂單已送出，我們將儘快與您聯繫！");
+              window.location.href = "index.html";
+            }
+          } else {
+            alert("訂單送出失敗，請稍後再試");
+          }
+        } catch (error) {
+          alert("發生錯誤：" + error.message);
+          console.error(error);
+        }
       });
-      totalAmount.textContent = `NT$${total}`;
-    }
-    renderCart();
+    });
   </script>
 </body>
-
 </html>
