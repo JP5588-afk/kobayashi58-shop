@@ -65,21 +65,36 @@
       max-width: 320px;
     }
 
-    .detail-action-group select,
+    .qty-select {
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid #ff69b4;
+      border-radius: 10px;
+      width: 100px;
+      background-color: white;
+      color: #333;
+      text-align: center;
+      font-family: 'Noto Sans TC', sans-serif;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23ff69b4' stroke-width='1.5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 12px;
+    }
+
+    .qty-select:hover {
+      border-color: #e75494;
+    }
+
     .detail-action-group button {
       flex: 1;
       padding: 10px;
       font-size: 16px;
       border-radius: 8px;
-      border: 1px solid #ff69b4;
-      box-sizing: border-box;
-    }
-
-    .detail-action-group button {
+      border: none;
       background-color: #ff69b4;
       color: white;
       font-weight: bold;
-      border: none;
       cursor: pointer;
     }
 
@@ -146,8 +161,17 @@
     <p class="desc">經典巧克力風味的Pocky棒，日本原裝進口，酥脆可口超涮嘴 🍫</p>
 
     <div class="detail-action-group">
-      <select id="qty">
-        ${[...Array(10)].map((_, i) => `<option value="${i + 1}">${i + 1}</option>`).join("")}
+      <select id="qty" class="qty-select">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
       </select>
       <button onclick="addToCart()">加入購物車</button>
     </div>
