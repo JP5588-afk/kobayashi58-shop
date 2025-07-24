@@ -71,14 +71,20 @@
 
     /* ✅ 下拉 + 按鈕併排 */
     .detail-action-group {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 12px;
-      margin-top: 20px;
-      flex-wrap: nowrap;
-    }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  flex-wrap: wrap; /* ✅ 自動換行避免手機擠壓 */
+}
 
+.detail-action-group select.qty-select,
+.detail-action-group button.checkout-btn {
+  flex: 1 1 140px;
+  max-width: 180px;
+  box-sizing: border-box;
+}
     .qty-select {
       padding: 10px 14px;
       font-size: 16px;
