@@ -1,42 +1,135 @@
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const delivery = document.getElementById("delivery");
-    const storeWrapper = document.getElementById("store-name-wrapper");
-    const form = document.getElementById("checkout-form");
-    const cartPreview = document.getElementById("cart-preview");
-    const submitBtn = document.getElementById("submit-btn");
-
-    // 顯示 / 隱藏 店名欄位
-    if (delivery && storeWrapper) {
-      delivery.addEventListener("change", () => {
-        storeWrapper.style.display = (delivery.value === "超商" || delivery.value === "蝦皮") ? "block" : "none";
-      });
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>結帳頁面 | こばやし選物所</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background-color: #fff0f5;
+      font-family: "Noto Sans TC", sans-serif;
+      padding: 20px;
+      color: #444;
     }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 2px solid #ff69b4;
+      box-sizing: border-box;
+    }
+    .checkout-actions {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .checkout-actions button {
+      padding: 12px 24px;
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .empty-cart-message {
+      color: gray;
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <form id="checkout-form">
+    <h2>結帳資訊</h2>
 
-    // 顯示購物車內容
-    let total = 0;
-    if (cart.length === 0) {
-      if (cartPreview && submitBtn) {
+    <div class="form-group">
+      <label for="name">購買人姓名：</label>
+      <input type="text" id="name" name="name" required />
+    </div>
+
+    <div class="form-group">
+      <label for="phone">購買人電話：</label>
+      <input type="tel" id="phone" name="phone" required />
+    </div>
+
+    <div class="form-group">
+      <label for="payment">支付方式：</label>
+      <select id="payment" name="payment" required>
+        <option value="">請選擇</option>
+        <option value="銀行轉帳">銀行轉帳</option>
+        <option value="信用卡">信用卡</option>
+        <option value="全支付">全支付</option>
+        <option value="貨到付款">貨到付款</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="delivery">取貨方式：</label>
+      <select id="delivery" name="delivery" required>
+        <option value="">請選擇</option>
+        <option value="超商">四大超商</option>
+        <option value="蝦皮">蝦皮店到店</option>
+        <option value="其他">其他</option>
+      </select>
+    </div>
+
+    <div class="form-group" id="store-name-wrapper" style="display: none;">
+      <label for="store">請輸入店名：</label>
+      <input type="text" id="store" name="store" placeholder="例如：711-台北忠孝店" />
+    </div>
+
+    <div id="checkout-items">
+      <h3>購物車明細</h3>
+      <div id="cart-preview"></div>
+    </div>
+
+    <input type="hidden" name="items" id="items-data" />
+    <input type="hidden" name="total" id="total-data" />
+
+    <div class="checkout-actions">
+      <button type="submit" id="submit-btn">前往結帳</button>
+    </div>
+  </form>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const delivery = document.getElementById("delivery");
+      const storeWrapper = document.getElementById("store-name-wrapper");
+      const form = document.getElementById("checkout-form");
+      const cartPreview = document.getElementById("cart-preview");
+      const submitBtn = document.getElementById("submit-btn");
+
+      if (delivery) {
+        delivery.addEventListener("change", () => {
+          storeWrapper.style.display = (delivery.value === "超商" || delivery.value === "蝦皮") ? "block" : "none";
+        });
+      }
+
+      let total = 0;
+      if (cart.length === 0) {
         cartPreview.innerHTML = `<p class="empty-cart-message">目前購物車是空的喔 🛒</p>`;
         submitBtn.disabled = true;
         submitBtn.style.backgroundColor = "#ccc";
         submitBtn.style.cursor = "not-allowed";
-      }
-    } else {
-      cart.forEach(item => {
-        total += item.price * item.quantity;
-        if (cartPreview) {
+      } else {
+        cart.forEach(item => {
+          total += item.price * item.quantity;
           cartPreview.innerHTML += `<p>${item.name} ×${item.quantity} — NT$${item.price * item.quantity}</p>`;
-        }
-      });
-      if (cartPreview) {
+        });
         cartPreview.innerHTML += `<p style="margin-top: 8px; font-weight: bold;">總金額：NT$${total.toLocaleString("zh-Hant-TW")}</p>`;
       }
-    }
 
-    // 表單送出邏輯
-    if (form) {
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
         if (cart.length === 0) return alert("購物車為空，無法結帳");
@@ -73,6 +166,7 @@
           console.error(error);
         }
       });
-    }
-  });
-</script>
+    });
+  </script>
+</body>
+</html>
