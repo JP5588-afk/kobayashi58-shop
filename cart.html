@@ -65,7 +65,7 @@
       color: #999;
     }
 
-    /* 🔻 新增：下方按鈕排版區 */
+    /* 🔻 下方按鈕群組 */
     .cart-btn-group {
       display: flex;
       gap: 12px;
@@ -75,8 +75,8 @@
     }
 
     .bottom-btn {
-      flex: 1;
-      max-width: 180px;
+      flex: 1 1 160px;
+      max-width: 200px;
       padding: 14px;
       font-size: 16px;
       font-weight: bold;
@@ -126,7 +126,7 @@
     <div id="cart-items"></div>
     <h3 id="total">總金額：NT$0</h3>
 
-    <!-- 🔻 移動後的新按鈕區塊 -->
+    <!-- 下方按鈕區 -->
     <div class="cart-btn-group">
       <a href="index.html" class="bottom-btn cart-btn">← 返回選物</a>
       <button class="bottom-btn checkout-btn" id="checkout-btn" onclick="goToCheckout()">前往結帳</button>
