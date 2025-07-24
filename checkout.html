@@ -83,6 +83,11 @@
       text-align: center;
       margin-top: 20px;
     }
+
+    /* ✅ 不要動畫、不要 transition，最穩定 */
+    #store-name-wrapper {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -118,11 +123,11 @@
         <option value="">請選擇</option>
         <option value="超商">四大超商（7-11 / 全家 / OK / 萊爾富）</option>
         <option value="蝦皮">蝦皮店到店</option>
-        <option value="面交">自取</option>
+        <option value="面交">面交（滿1000限中彰投）</option>
       </select>
     </div>
 
-    <div class="form-group" id="store-name-wrapper" style="display: none;">
+    <div class="form-group" id="store-name-wrapper">
       <label for="store">請輸入店名：</label>
       <input type="text" id="store" name="store" placeholder="例如：7-11 台北忠孝店" />
     </div>
@@ -145,29 +150,23 @@
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
       const delivery = document.getElementById("delivery");
       const storeWrapper = document.getElementById("store-name-wrapper");
-      const storeInput = document.getElementById("store");
       const form = document.getElementById("checkout-form");
       const cartPreview = document.getElementById("cart-preview");
       const submitBtn = document.getElementById("submit-btn");
 
+      // ✅ 無動畫純顯示邏輯
       function toggleStoreInput() {
         const value = delivery.value;
         if (value === "超商" || value === "蝦皮") {
           storeWrapper.style.display = "block";
-          setTimeout(() => {
-            try {
-              storeInput.focus();
-            } catch (e) {}
-          }, 200);
         } else {
           storeWrapper.style.display = "none";
         }
       }
 
       delivery.addEventListener("change", toggleStoreInput);
-      toggleStoreInput(); // 頁面初始化也跑一次
+      toggleStoreInput();
 
-      // 顯示購物明細
       let total = 0;
       if (cart.length === 0) {
         cartPreview.innerHTML = `<p class="empty-cart-message">目前購物車是空的喔 🛒</p>`;
@@ -182,7 +181,6 @@
         cartPreview.innerHTML += `<p style="margin-top: 8px; font-weight: bold;">總金額：NT$${total.toLocaleString("zh-Hant-TW")}</p>`;
       }
 
-      // 表單送出
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
         if (cart.length === 0) return alert("購物車為空，無法結帳");
