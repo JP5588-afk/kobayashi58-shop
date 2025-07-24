@@ -26,7 +26,6 @@ h1 {
   color: #fff8f8;
 }
 
-/* ⬇️ 右上角購物車按鈕 */
 .detail-cart-float {
   position: fixed;
   top: 12px;
@@ -34,7 +33,7 @@ h1 {
   font-size: 26px;
   color: #ff69b4;
   text-decoration: none;
-  background: none;   /* ✅ 移除背景 */
+  background: none;
   padding: 0;
   border-radius: 0;
   z-index: 999;
@@ -53,7 +52,6 @@ h1 {
   line-height: 1;
 }
 
-/* ⬇️ 加入購物車＋下拉選單美化＋尺寸一致 */
 .detail-action-group {
   display: flex;
   justify-content: center;
@@ -103,7 +101,6 @@ h1 {
   background-color: #ff1493;
 }
 
-/* 🛒 動畫圖片飛入 */
 .fly-img {
   position: absolute;
   z-index: 9999;
@@ -111,6 +108,7 @@ h1 {
   transition: all 0.7s ease-in-out;
   pointer-events: none;
 }
+
 .cart-btn-group {
   display: flex;
   justify-content: center;
@@ -142,6 +140,7 @@ h1 {
 .cart-btn-group button:hover {
   background-color: #e75494;
 }
+
 .cart-total {
   text-align: center;
   font-size: 20px;
@@ -177,7 +176,7 @@ h1 {
 .bottom-btn:hover {
   background-color: #ff1493;
 }
-/* ✅ 商品格線區塊 */
+
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -185,7 +184,6 @@ h1 {
   padding: 16px;
 }
 
-/* ✅ 商品卡片樣式 */
 .product-card {
   background-color: #fff;
   border-radius: 12px;
@@ -205,7 +203,6 @@ h1 {
   margin-bottom: 10px;
 }
 
-/* ✅ 商品名稱與價格 */
 .product-card h3 {
   margin: 8px 0 4px;
   font-size: 16px;
@@ -218,11 +215,11 @@ h1 {
   margin: 0;
 }
 
-/* ✅ 移除超連結的藍色底線 */
 .product-card a {
   text-decoration: none;
   color: inherit;
 }
+
 @media (max-width: 500px) {
   .detail-action-group {
     flex-direction: column;
@@ -235,4 +232,28 @@ h1 {
   .bottom-btn {
     max-width: 100%;
   }
+}
+
+/* 🔧 cart-item 調整刪除按鈕垂直置中 */
+.cart-item {
+  position: relative;
+}
+
+.remove-btn {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  background: #ff69b4;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* 🔒 防止雙指放大造成按鈕縮放 bug（需配合 JS 限制縮放行為） */
+input, button {
+  touch-action: manipulation;
 }
