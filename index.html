@@ -67,21 +67,9 @@
     .button-group .line-btn:hover {
       background-color: #059944;
     }
-
-    /* 數量選單樣式 */
-    .qty-select {
-      margin-top: 8px;
-      padding: 8px;
-      font-size: 14px;
-      border-radius: 6px;
-      border: 1px solid #ff69b4;
-      width: 100%;
-      box-sizing: border-box;
-    }
   </style>
 </head>
 <body>
-
   <!-- 右上角浮動購物車圖示 -->
   <a href="cart.html" class="cart-float" id="cart-float">🛒<span id="cart-count">0</span></a>
 
@@ -90,78 +78,35 @@
     <p class="tagline">精選日系零食與小物，每一樣都想抱回家 🍡</p>
     <div class="button-group">
       <a href="notice.html" class="cart-btn">📌 訂購須知</a>
-      <a href="https://line.me/ti/g/C9W7CPNKNQ" class="line-btn" target="_blank">💬 LINE群組</a>
+      <a href="https://line.me/ti/g/C9W7CPNKNQ" class="line-btn" target="_blank">🛋 LINE群組</a>
     </div>
   </header>
 
- <main class="product-grid">
-  <div class="product">
-    <a href="product.html?name=Pocky%20巧克力棒">
-      <img src="https://i.imgur.com/xkU43cF.png" alt="Pocky">
-      <h2>Pocky 巧克力棒</h2>
-      <p>NT$59</p>
-    </a>
-  </div>
+  <main class="product-grid">
+    <div class="product-card">
+      <a href="product.html?name=Pocky%20巧克力棒">
+        <img src="https://i.imgur.com/xkU43cF.png" alt="Pocky">
+        <h3>Pocky 巧克力棒</h3>
+        <p>NT$59</p>
+      </a>
+    </div>
 
-  <div class="product">
-    <a href="product.html?name=Calbee%20薯條">
-      <img src="https://i.imgur.com/yYB2rVA.png" alt="Calbee">
-      <h2>Calbee 薯條</h2>
-      <p>NT$89</p>
-    </a>
-  </div>
-</main>
-
+    <div class="product-card">
+      <a href="product.html?name=Calbee%20薯條">
+        <img src="https://i.imgur.com/yYB2rVA.png" alt="Calbee">
+        <h3>Calbee 薯條</h3>
+        <p>NT$89</p>
+      </a>
+    </div>
+  </main>
 
   <script>
     document.addEventListener("DOMContentLoaded", updateCartIconCount);
 
-    function addToCart(button) {
-      const product = button.closest('.product');
-      const name = product.querySelector('h2').innerText;
-      const price = parseInt(product.querySelector('p').innerText.replace('NT$', ''));
-      const img = product.querySelector('img').src;
-      const qty = parseInt(product.querySelector('.qty-select').value); // ✅ 選擇的數量
-
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      const existingItem = cart.find(item => item.name === name);
-      if (existingItem) {
-        existingItem.quantity += qty;
-      } else {
-        cart.push({ name, price, quantity: qty, img });
-      }
-      localStorage.setItem("cart", JSON.stringify(cart));
-
-      // 飛行動畫
-      const flyingImg = product.querySelector('img').cloneNode();
-      const imgRect = product.querySelector('img').getBoundingClientRect();
-      const cartIcon = document.getElementById('cart-float');
-      const cartRect = cartIcon.getBoundingClientRect();
-
-      flyingImg.classList.add('fly-img');
-      flyingImg.style.top = imgRect.top + 'px';
-      flyingImg.style.left = imgRect.left + 'px';
-      flyingImg.style.width = imgRect.width + 'px';
-
-      document.body.appendChild(flyingImg);
-
-      setTimeout(() => {
-        flyingImg.style.top = cartRect.top + 'px';
-        flyingImg.style.left = cartRect.left + 'px';
-        flyingImg.style.width = '0px';
-        flyingImg.style.opacity = '0';
-      }, 10);
-
-      setTimeout(() => {
-        flyingImg.remove();
-        updateCartIconCount();
-      }, 700);
-    }
-
     function updateCartIconCount() {
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
       const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
-      document.getElementById('cart-count').textContent = totalQty;
+      document.getElementById("cart-count").textContent = totalQty;
     }
   </script>
 </body>
