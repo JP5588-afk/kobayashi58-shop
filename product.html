@@ -20,11 +20,10 @@
       align-items: center;
       gap: 12px;
       margin-top: 20px;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
     }
 
     .checkout-btn {
-      flex: 1;
       background-color: #ff69b4;
       color: white;
       padding: 10px;
@@ -42,12 +41,10 @@
     .detail-nav-group {
       display: flex;
       justify-content: center;
-      gap: 12px;
       margin-top: 24px;
-      flex-wrap: wrap;
     }
 
-    .detail-back-btn, .cart-icon-btn {
+    .detail-back-btn {
       display: inline-block;
       padding: 12px;
       font-size: 16px;
@@ -60,20 +57,8 @@
       min-width: 120px;
     }
 
-    .detail-back-btn:hover, .cart-icon-btn:hover {
+    .detail-back-btn:hover {
       background-color: #ff1493;
-    }
-
-    .cart-icon-btn {
-      position: relative;
-    }
-
-    .cart-icon-btn::after {
-      content: '🛒';
-      position: absolute;
-      top: 6px;
-      right: 10px;
-      font-size: 20px;
     }
 
     .fly-img {
@@ -83,11 +68,44 @@
       transition: all 0.7s ease-in-out;
       pointer-events: none;
     }
+
+    .header-cart {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      font-size: 20px;
+      color: white;
+      text-decoration: none;
+    }
+
+    .header-cart .badge {
+      position: absolute;
+      top: -6px;
+      right: -8px;
+      background-color: red;
+      color: white;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 50%;
+    }
+
+    header {
+      position: relative;
+      padding: 20px;
+      text-align: center;
+      background-color: #ffc0cb;
+      color: white;
+      font-weight: bold;
+      font-size: 24px;
+    }
   </style>
 </head>
 <body>
   <header>
-    <h1>商品詳情</h1>
+    商品詳情
+    <a href="cart.html" class="header-cart">
+      🛒<span class="badge" id="cart-count">0</span>
+    </a>
   </header>
 
   <main class="product-detail-container">
@@ -102,7 +120,6 @@
     </div>
 
     <div class="detail-nav-group">
-      <a href="cart.html" class="cart-icon-btn">購物車</a>
       <a href="index.html" class="detail-back-btn">← 回到選物</a>
     </div>
   </main>
@@ -116,7 +133,7 @@
       },
       "Calbee 薯條": {
         price: 89,
-        img: "https://i.imgur.com/2nCt3Sbl.jpg",
+        img: "https://i.imgur.com/2nCt3Sb.jpg",
         description: "人氣熱銷的Calbee薯條，鹹香酥脆，搭配啤酒一級棒 🍟🍺"
       }
     };
@@ -150,6 +167,7 @@
         }
         localStorage.setItem("cart", JSON.stringify(cart));
         flyToCart();
+        updateCartCount();
       }
 
       function flyToCart() {
@@ -159,7 +177,7 @@
         document.body.appendChild(flyImg);
 
         const start = img.getBoundingClientRect();
-        const end = document.querySelector(".cart-icon-btn").getBoundingClientRect();
+        const end = document.querySelector(".header-cart").getBoundingClientRect();
 
         flyImg.style.left = `${start.left}px`;
         flyImg.style.top = `${start.top}px`;
@@ -171,6 +189,14 @@
           setTimeout(() => flyImg.remove(), 700);
         }, 50);
       }
+
+      function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
+        document.getElementById("cart-count").textContent = totalQty;
+      }
+
+      updateCartCount();
 
     } else {
       document.querySelector("main").innerHTML = "<p>找不到這個商品 😢</p>";
