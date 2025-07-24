@@ -14,7 +14,6 @@
       position: relative;
     }
 
-    /* 返回按鈕樣式 */
     .back-btn {
       position: absolute;
       top: 16px;
@@ -67,6 +66,20 @@
       cursor: pointer;
     }
 
+    /* 移除文字和電話欄位的上下箭頭 */
+    input[type="text"]::-webkit-inner-spin-button,
+    input[type="text"]::-webkit-outer-spin-button,
+    input[type="tel"]::-webkit-inner-spin-button,
+    input[type="tel"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    input[type="text"],
+    input[type="tel"] {
+      -moz-appearance: textfield;
+    }
+
     .checkout-actions {
       margin-top: 20px;
       text-align: center;
@@ -86,16 +99,6 @@
       color: gray;
       text-align: center;
       margin-top: 20px;
-    }
-
-    /* 移除 number 欄位上下箭頭 (保險加上) */
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-    input[type="number"] {
-      -moz-appearance: textfield;
     }
   </style>
 </head>
@@ -201,18 +204,12 @@
           if (res.ok) {
             localStorage.removeItem("cart");
 
-            const name = formData.get("name");
-            const phone = formData.get("phone");
-            const payment = formData.get("payment");
-            const items = formData.get("items");
-            const total = formData.get("total");
-
             const query = new URLSearchParams({
-              name,
-              phone,
-              payment,
-              items,
-              total
+              name: formData.get("name"),
+              phone: formData.get("phone"),
+              payment: formData.get("payment"),
+              items: formData.get("items"),
+              total: formData.get("total")
             }).toString();
 
             if (paymentMethod === "銀行轉帳") {
