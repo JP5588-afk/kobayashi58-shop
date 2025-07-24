@@ -377,4 +377,19 @@ h1 {
   .product:hover {
     transform: none;
   }
+
+}
+.button-group {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.button-group .checkout-btn {
+  flex: 1 1 160px;
+  max-width: 200px;
+  text-align: center;
+  font-size: 16px;
 }
