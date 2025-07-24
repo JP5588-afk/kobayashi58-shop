@@ -36,7 +36,6 @@ h1 {
   font-weight: bold;
 }
 
-/* 商品區：統一寬度 + 陰影 + 漂亮圓角 */
 .product-grid {
   display: flex;
   flex-wrap: wrap;
@@ -92,119 +91,8 @@ h1 {
   background-color: #ff1493;
 }
 
-/* 購物車區域 */
 .cart-container {
   padding: 20px;
-}
-
-.cart-item {
-  background-color: #fff;
-  padding: 16px;
-  border-radius: 10px;
-  margin-bottom: 16px;
-  box-shadow: 0 2px 6px rgba(255, 192, 203, 0.2);
-}
-
-.cart-item select {
-  padding: 6px;
-  border-radius: 6px;
-  border: 1px solid #ff69b4;
-  margin: 6px 0;
-  font-size: 16px;
-  width: 100%;
-}
-
-.remove-btn {
-  background-color: #f08080;
-  border: none;
-  color: white;
-  padding: 10px 14px;
-  border-radius: 6px;
-  margin-top: 8px;
-  cursor: pointer;
-  width: 100%;
-  font-weight: bold;
-}
-
-.checkout-btn {
-  display: inline-block;
-  margin-top: 20px;
-  background-color: #ff69b4;
-  color: white;
-  padding: 12px 20px;
-  border-radius: 12px;
-  text-decoration: none;
-  font-weight: bold;
-  width: 100%;
-  text-align: center;
-}
-
-/* 手機版優化 */
-@media (max-width: 600px) {
-  .product-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 16px;
-    padding: 10px;
-  }
-
-  .product {
-    width: calc(50% - 12px); /* 兩欄 */
-    box-sizing: border-box;
-    margin-bottom: 16px;
-  }
-
-  .product img {
-    height: 140px;
-    object-fit: cover;
-  }
-
-  h1, h2, h3, p {
-    text-align: center;
-  }
-
-  button,
-  .cart-btn,
-  .checkout-btn,
-  .remove-btn,
-  select {
-    font-size: 16px;
-  }
-
-  .cart-item {
-    width: 100%;
-    font-size: 16px;
-    padding: 14px;
-    box-sizing: border-box;
-  }
-
-  .cart-item select {
-    width: 100%;
-    font-size: 16px;
-  }
-
-  .remove-btn {
-    width: 100%;
-    font-size: 16px;
-    padding: 10px;
-  }
-
-  #checkout-form input,
-  #checkout-form select {
-    width: 100%;
-    font-size: 16px;
-  }
-}
-
-input[type="text"], input[type="tel"], select {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ffb6c1;
-  margin-bottom: 12px;
-  box-sizing: border-box;
-  font-size: 16px;
 }
 
 .cart-item {
@@ -234,16 +122,14 @@ input[type="text"], input[type="tel"], select {
   font-size: 16px;
 }
 
-.cart-info p {
+.cart-info p,
+.cart-info label {
   margin: 4px 0;
   font-size: 14px;
 }
 
-.cart-info label {
-  font-size: 14px;
-}
-
-.cart-info select {
+.cart-info select,
+.cart-item select {
   width: 100%;
   max-width: 100px;
   padding: 6px;
@@ -262,9 +148,10 @@ input[type="text"], input[type="tel"], select {
   font-size: 14px;
   margin-top: 8px;
   cursor: pointer;
+  width: 100%;
+  font-weight: bold;
 }
 
-/* 修正手機版 checkout-btn 超出問題 */
 .checkout-btn {
   display: block;
   width: 100%;
@@ -275,24 +162,31 @@ input[type="text"], input[type="tel"], select {
   padding: 14px;
   border-radius: 12px;
   margin-top: 20px;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
-/* 結帳表單美化 */
+.checkout-btn:hover {
+  background-color: #e75494;
+}
+
 #checkout-form {
-  max-width: 400px;
-  margin: 20px auto;
-  background-color: #fff0f5;
-  padding: 20px;
+  max-width: 420px;
+  margin: 40px auto;
+  background-color: #fffafc;
+  padding: 24px;
   border-radius: 16px;
-  box-shadow: 0 0 10px rgba(255, 105, 180, 0.2);
+  box-shadow: 0 0 10px rgba(255, 182, 193, 0.2);
   font-family: "Segoe UI", sans-serif;
 }
 
 #checkout-form label {
   font-weight: bold;
   color: #555;
+  margin-bottom: 4px;
 }
 
 #checkout-form input,
@@ -301,28 +195,75 @@ input[type="text"], input[type="tel"], select {
   padding: 10px;
   margin-top: 6px;
   margin-bottom: 16px;
-  border: 1px solid #ccc;
+  border: 1px solid #ffb6c1;
   border-radius: 8px;
   font-size: 16px;
+  box-sizing: border-box;
 }
 
-.checkout-btn {
-  width: 100%;
-  background-color: #ff69b4;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 14px;
-  font-size: 18px;
-  cursor: pointer;
-  transition: 0.3s;
+.section-title {
+  text-align: center;
+  font-size: 22px;
+  color: #c71585;
+  margin-bottom: 20px;
+  font-weight: bold;
 }
 
-.checkout-btn:hover {
-  background-color: #e75494;
+.empty-cart-message {
+  text-align: center;
+  color: #c71585;
+  font-weight: bold;
+  margin-top: 20px;
 }
 
-/* 顯示購物車項目區塊 */
+.form-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 600px) {
+  .product-grid {
+    gap: 16px;
+    padding: 10px;
+  }
+
+  .product {
+    width: calc(50% - 12px);
+    box-sizing: border-box;
+    margin-bottom: 16px;
+  }
+
+  .product img {
+    height: 140px;
+  }
+
+  h1, h2, h3, p {
+    text-align: center;
+  }
+
+  button,
+  .cart-btn,
+  .checkout-btn,
+  .remove-btn,
+  select {
+    font-size: 16px;
+  }
+
+  .cart-item,
+  .remove-btn {
+    width: 100%;
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  #checkout-form input,
+  #checkout-form select {
+    width: 100%;
+    font-size: 16px;
+  }
+}
+
 #checkout-items {
   max-width: 400px;
   margin: 0 auto;
@@ -376,4 +317,3 @@ input[type="text"], input[type="tel"], select {
 .line-btn:hover {
   background-color: #059944;
 }
-
