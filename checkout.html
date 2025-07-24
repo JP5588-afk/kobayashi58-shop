@@ -235,11 +235,19 @@
   });
 
   if (res.ok) {
-    localStorage.removeItem("cart");
+  localStorage.removeItem("cart");
+
+  const paymentMethod = formData.get("payment");
+
+  if (paymentMethod === "ATM") {
+    window.location.href = "bank-transfer.html";
+  } else if (paymentMethod === "全支付") {
     window.location.href = "pay.html";
   } else {
-    alert("訂單送出失敗，請稍後再試");
+    alert("訂單已送出，我們將儘快與您聯繫！");
+    window.location.href = "index.html"; // 或改跳感謝頁
   }
+
 });
 </script>
 
