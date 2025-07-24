@@ -177,3 +177,49 @@ h1 {
 .bottom-btn:hover {
   background-color: #ff1493;
 }
+/* ✅ 商品格線區塊 */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  padding: 16px;
+}
+
+/* ✅ 商品卡片樣式 */
+.product-card {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+}
+
+.product-card img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* ✅ 商品名稱與價格 */
+.product-card h3 {
+  margin: 8px 0 4px;
+  font-size: 16px;
+  color: #333;
+}
+
+.product-card p {
+  font-size: 14px;
+  color: #888;
+  margin: 0;
+}
+
+/* ✅ 移除超連結的藍色底線 */
+.product-card a {
+  text-decoration: none;
+  color: inherit;
+}
