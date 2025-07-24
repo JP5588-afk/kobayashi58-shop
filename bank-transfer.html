@@ -84,11 +84,11 @@
 <body>
   <h2>ATM / 網銀 轉帳資訊</h2>
   <div class="bank-info">
-    <p><strong>購買人姓名：</strong><span id="buyer-name">載入中...</span></p>
-    <p><strong>購買人電話：</strong><span id="buyer-phone">載入中...</span></p>
-    <p><strong>付款方式：</strong><span id="buyer-payment">載入中...</span></p>
-    <p><strong>總金額：</strong><span id="order-total">載入中...</span></p>
-    <p><strong>購物明細：</strong><span id="order-items">載入中...</span></p>
+    <p><strong>購買人姓名：</strong><span id="name">載入中...</span></p>
+    <p><strong>購買人電話：</strong><span id="phone">載入中...</span></p>
+    <p><strong>付款方式：</strong><span id="payment">載入中...</span></p>
+    <p><strong>總金額：</strong><span id="total">載入中...</span></p>
+    <p><strong>購物明細：</strong><span id="items">載入中...</span></p>
 
     <hr style="margin: 20px 0;" />
 
@@ -114,14 +114,13 @@
       });
     }
 
-    // 讀取上一頁傳來的資料
+    // ✅ 讀取上一頁傳來的網址參數並顯示在對應欄位
     const params = new URLSearchParams(window.location.search);
-    document.getElementById("buyer-name").textContent = params.get("name") || "未提供";
-    document.getElementById("buyer-phone").textContent = params.get("phone") || "未提供";
-    document.getElementById("buyer-payment").textContent = params.get("payment") || "未提供";
-    document.getElementById("order-total").textContent = params.get("total") || "未提供";
-    document.getElementById("order-items").textContent = params.get("items") || "未提供";
+    document.getElementById("name").textContent = params.get("name") || "未提供";
+    document.getElementById("phone").textContent = params.get("phone") || "未提供";
+    document.getElementById("payment").textContent = params.get("payment") || "未提供";
+    document.getElementById("total").textContent = params.get("total") || "未提供";
+    document.getElementById("items").textContent = params.get("items") || "未提供";
   </script>
 </body>
-
 </html>
