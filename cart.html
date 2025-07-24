@@ -11,6 +11,7 @@
       font-family: "Noto Sans TC", sans-serif;
       margin: 0;
       padding: 0;
+      touch-action: manipulation;
     }
 
     header {
@@ -77,6 +78,7 @@
       border-radius: 8px;
       cursor: pointer;
       font-weight: bold;
+      touch-action: manipulation;
     }
 
     .qty-num {
@@ -87,8 +89,9 @@
 
     .remove-btn {
       position: absolute;
-      top: 12px;
-      right: 12px;
+      top: 50%;
+      right: 16px;
+      transform: translateY(-50%);
       background: #ff69b4;
       color: white;
       border: none;
@@ -212,6 +215,7 @@
       updateCartDisplay();
 
       document.getElementById("cart-items").addEventListener("click", (e) => {
+        e.preventDefault();
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
         if (e.target.classList.contains("remove-btn")) {
