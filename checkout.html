@@ -163,19 +163,14 @@
       const submitBtn = document.getElementById("submit-btn");
 
       function toggleStoreInput() {
-        const value = delivery.value;
-        if (
-          value === "7-11" ||
-          value === "全家" ||
-          value === "OK" ||
-          value === "萊爾富" ||
-          value === "蝦皮"
-        ) {
-          storeWrapper.style.display = "block";
-        } else {
-          storeWrapper.style.display = "none";
-        }
-      }
+  const value = delivery.value;
+  const needInput = ["7-11", "全家", "OK", "萊爾富", "蝦皮店到店"];
+  if (needInput.includes(value)) {
+    storeWrapper.style.display = "block";
+  } else {
+    storeWrapper.style.display = "none";
+  }
+}
 
       delivery.addEventListener("change", toggleStoreInput);
       toggleStoreInput();
