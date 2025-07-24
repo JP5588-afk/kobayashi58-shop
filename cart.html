@@ -14,23 +14,17 @@
   <main class="cart-container">
     <div id="cart-items"></div>
 
-    <!-- ✅ 總金額置中 -->
-    <h3 id="total" style="text-align: center; font-size: 20px; margin-top: 20px;">總金額：NT$0</h3>
+    <!-- ✅ 總金額 -->
+    <h3 id="total" class="cart-total">總金額：NT$0</h3>
 
-    <!-- ✅ 並排按鈕 -->
-    <div class="cart-btn-group">
-      <a href="index.html" class="bottom-btn cart-btn">← 返回選物</a>
-      <button onclick="location.href='checkout.html'" class="bottom-btn checkout-btn" id="checkout-btn">前往結帳</button>
+    <!-- ✅ 返回與結帳按鈕 -->
+    <div class="cart-btn-row">
+      <a href="index.html" class="bottom-btn">← 返回選物</a>
+      <button id="checkout-btn" class="bottom-btn">前往結帳</button>
     </div>
   </main>
 
   <script>
-    function goToCheckout() {
-      if (!document.getElementById("checkout-btn").classList.contains("disabled")) {
-        window.location.href = "checkout.html";
-      }
-    }
-
     function formatPrice(num) {
       return "NT$" + num.toLocaleString("zh-Hant-TW");
     }
@@ -101,6 +95,12 @@
           cart.splice(index, 1);
           localStorage.setItem("cart", JSON.stringify(cart));
           updateCartDisplay();
+        }
+      });
+
+      document.getElementById("checkout-btn").addEventListener("click", () => {
+        if (!document.getElementById("checkout-btn").classList.contains("disabled")) {
+          location.href = "checkout.html";
         }
       });
     });
