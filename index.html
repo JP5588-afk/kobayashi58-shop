@@ -6,123 +6,47 @@
   <title>こばやし選物所</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    .cart-float {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      font-size: 24px;
-      cursor: pointer;
-      z-index: 999;
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      padding: 16px;
     }
 
-    .cart-float span {
-      background: red;
-      color: white;
-      border-radius: 50%;
-      padding: 2px 6px;
-      font-size: 14px;
-      margin-left: 4px;
-      vertical-align: top;
-    }
-
-    .fly-img {
-      position: absolute;
-      z-index: 9999;
-      width: 50px;
-      transition: all 0.7s ease-in-out;
-      pointer-events: none;
-    }
-
-    .button-group {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 12px;
-    }
-
-    .button-group a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 46px;
-      padding: 0 16px;
-      font-size: 16px;
-      font-weight: bold;
+    .product-card {
+      background-color: #fff;
       border-radius: 12px;
-      text-decoration: none;
-      color: white;
-      box-sizing: border-box;
-      flex: 1;
-      max-width: 160px;
+      padding: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      text-align: center;
     }
 
-    .button-group .cart-btn {
-      background-color: #ff69b4;
+    .product-card img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 10px;
     }
 
-    .button-group .line-btn {
-      background-color: #00c300;
+    .product-card h3 {
+      margin: 8px 0 4px;
+      font-size: 16px;
+      color: #333;
     }
 
-    .button-group .line-btn:hover {
-      background-color: #059944;
+    .product-card p {
+      font-size: 14px;
+      color: #888;
+      margin: 0;
     }
   </style>
 </head>
 <body>
-  <!-- 右上角浮動購物車圖示 -->
-  <a href="cart.html" class="cart-float" id="cart-float">🛒<span id="cart-count">0</span></a>
-
   <header>
     <h1>こばやし選物所</h1>
     <p class="tagline">精選日系零食與小物，每一樣都想抱回家 🍡</p>
-    <div class="button-group">
-      <a href="notice.html" class="cart-btn">📌 訂購須知</a>
-      <a href="https://line.me/ti/g/C9W7CPNKNQ" class="line-btn" target="_blank">🛋 LINE群組</a>
-    </div>
   </header>
 
   <main class="product-grid">
-    <div class="product-card">
-      <a href="product.html?name=日式布丁">
-        <img src="https://i.imgur.com/3LzXwlp.png" alt="日式布丁">
-        <h3>日式布丁</h3>
-        <p>NT$45</p>
-      </a>
-    </div>
-
-    <div class="product-card">
-      <a href="product.html?name=草莓麻糬">
-        <img src="https://i.imgur.com/XXd8IKM.png" alt="草莓麻糬">
-        <h3>草莓麻糬</h3>
-        <p>NT$65</p>
-      </a>
-    </div>
-
-    <div class="product-card">
-      <a href="product.html?name=抹茶KitKat">
-        <img src="https://i.imgur.com/sCVkD2b.png" alt="抹茶KitKat">
-        <h3>抹茶 KitKat</h3>
-        <p>NT$55</p>
-      </a>
-    </div>
-
-    <div class="product-card">
-      <a href="product.html?name=手工仙貝">
-        <img src="https://i.imgur.com/PrLkZXT.png" alt="手工仙貝">
-        <h3>手工仙貝</h3>
-        <p>NT$70</p>
-      </a>
-    </div>
-
-    <div class="product-card">
-      <a href="product.html?name=日清拉麵杯">
-        <img src="https://i.imgur.com/IwMJ2gO.png" alt="日清拉麵杯">
-        <h3>日清拉麵杯</h3>
-        <p>NT$49</p>
-      </a>
-    </div>
-
     <div class="product-card">
       <a href="product.html?name=Pocky%20巧克力棒">
         <img src="https://i.imgur.com/xkU43cF.png" alt="Pocky">
@@ -130,16 +54,46 @@
         <p>NT$59</p>
       </a>
     </div>
+
+    <div class="product-card">
+      <a href="product.html?name=Calbee%20薯條">
+        <img src="https://i.imgur.com/yYB2rVA.png" alt="Calbee">
+        <h3>Calbee 薯條</h3>
+        <p>NT$89</p>
+      </a>
+    </div>
+
+    <div class="product-card">
+      <a href="product.html?name=KitKat%20抹茶">
+        <img src="https://i.imgur.com/zjgjWEn.png" alt="KitKat">
+        <h3>KitKat 抹茶</h3>
+        <p>NT$65</p>
+      </a>
+    </div>
+
+    <div class="product-card">
+      <a href="product.html?name=Jagabee%20馬鈴薯條">
+        <img src="https://i.imgur.com/UENrAhQ.png" alt="Jagabee">
+        <h3>Jagabee 馬鈴薯條</h3>
+        <p>NT$75</p>
+      </a>
+    </div>
+
+    <div class="product-card">
+      <a href="product.html?name=Meiji%20果汁軟糖">
+        <img src="https://i.imgur.com/WbdZRMv.png" alt="Meiji">
+        <h3>Meiji 果汁軟糖</h3>
+        <p>NT$45</p>
+      </a>
+    </div>
+
+    <div class="product-card">
+      <a href="product.html?name=Pretz%20鹽味棒">
+        <img src="https://i.imgur.com/AZcEKU3.png" alt="Pretz">
+        <h3>Pretz 鹽味棒</h3>
+        <p>NT$55</p>
+      </a>
+    </div>
   </main>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", updateCartIconCount);
-
-    function updateCartIconCount() {
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
-      document.getElementById("cart-count").textContent = totalQty;
-    }
-  </script>
 </body>
 </html>
