@@ -6,7 +6,6 @@
   <title>こばやし選物所</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* 加入購物車右上角圖示樣式 */
     .cart-float {
       position: fixed;
       top: 20px;
@@ -38,7 +37,7 @@
 <body>
 
   <!-- 右上角浮動購物車圖示 -->
-  <div class="cart-float" id="cart-float">🛒<span id="cart-count">0</span></div>
+  <a href="cart.html" class="cart-float" id="cart-float">🛒<span id="cart-count">0</span></a>
 
   <header>
     <h1>こばやし選物所</h1>
@@ -72,26 +71,36 @@
   </main>
 
   <script>
-    let cartCount = 0;
+    document.addEventListener("DOMContentLoaded", updateCartIconCount);
 
     function addToCart(button) {
-      // 找到商品圖片
       const product = button.closest('.product');
-      const img = product.querySelector('img');
-      const flyingImg = img.cloneNode();
+      const name = product.querySelector('h2').innerText;
+      const price = parseInt(product.querySelector('p').innerText.replace('NT$', ''));
+      const img = product.querySelector('img').src;
 
-      const imgRect = img.getBoundingClientRect();
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const existingItem = cart.find(item => item.name === name);
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cart.push({ name, price, quantity: 1, img });
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      // 飛行動畫
+      const flyingImg = product.querySelector('img').cloneNode();
+      const imgRect = product.querySelector('img').getBoundingClientRect();
       const cartIcon = document.getElementById('cart-float');
       const cartRect = cartIcon.getBoundingClientRect();
 
       flyingImg.classList.add('fly-img');
       flyingImg.style.top = imgRect.top + 'px';
       flyingImg.style.left = imgRect.left + 'px';
-      flyingImg.style.width = img.offsetWidth + 'px';
+      flyingImg.style.width = imgRect.width + 'px';
 
       document.body.appendChild(flyingImg);
 
-      // 開始飛行動畫
       setTimeout(() => {
         flyingImg.style.top = cartRect.top + 'px';
         flyingImg.style.left = cartRect.left + 'px';
@@ -101,9 +110,14 @@
 
       setTimeout(() => {
         flyingImg.remove();
-        cartCount++;
-        document.getElementById('cart-count').textContent = cartCount;
+        updateCartIconCount();
       }, 700);
+    }
+
+    function updateCartIconCount() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
+      document.getElementById('cart-count').textContent = totalQty;
     }
   </script>
 </body>
