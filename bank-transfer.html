@@ -84,6 +84,14 @@
 <body>
   <h2>ATM / 網銀 轉帳資訊</h2>
   <div class="bank-info">
+    <p><strong>購買人姓名：</strong><span id="buyer-name">載入中...</span></p>
+    <p><strong>購買人電話：</strong><span id="buyer-phone">載入中...</span></p>
+    <p><strong>付款方式：</strong><span id="buyer-payment">載入中...</span></p>
+    <p><strong>總金額：</strong><span id="order-total">載入中...</span></p>
+    <p><strong>購物明細：</strong><span id="order-items">載入中...</span></p>
+
+    <hr style="margin: 20px 0;" />
+
     <p>銀行名稱：中國信託</p>
     <p>銀行代碼：822</p>
     <p>分行名稱：市政分行</p>
@@ -105,6 +113,15 @@
         alert("帳號已複製：" + text);
       });
     }
+
+    // 讀取上一頁傳來的資料
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById("buyer-name").textContent = params.get("name") || "未提供";
+    document.getElementById("buyer-phone").textContent = params.get("phone") || "未提供";
+    document.getElementById("buyer-payment").textContent = params.get("payment") || "未提供";
+    document.getElementById("order-total").textContent = params.get("total") || "未提供";
+    document.getElementById("order-items").textContent = params.get("items") || "未提供";
   </script>
 </body>
+
 </html>
