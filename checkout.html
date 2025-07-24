@@ -5,6 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>結帳頁面</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .checkout-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .checkout-actions a {
+      flex: 1 1 140px;
+      background-color: #ff69b4;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      padding: 12px;
+      border-radius: 12px;
+      text-decoration: none;
+    }
+    .checkout-actions a:hover {
+      background-color: #ff1493;
+    }
+  </style>
 </head>
 <body>
 
@@ -55,7 +77,10 @@
   <input type="hidden" name="items" id="items-data" />
   <input type="hidden" name="total" id="total-data" />
 
-  <button type="submit" id="submit-btn" class="checkout-btn">送出訂單</button>
+  <div class="checkout-actions">
+    <a href="index.html">← 返回選物</a>
+    <button type="submit" id="submit-btn" class="checkout-btn" style="flex:1 1 140px;">前往結帳</button>
+  </div>
 </form>
 
 <script>
@@ -66,12 +91,10 @@
   const cartPreview = document.getElementById("cart-preview");
   const submitBtn = document.getElementById("submit-btn");
 
-  // 顯示店名欄位
   delivery.addEventListener("change", () => {
     storeWrapper.style.display = (delivery.value === "超商" || delivery.value === "蝦皮") ? "block" : "none";
   });
 
-  // 預覽購物車
   let total = 0;
   if (cart.length === 0) {
     cartPreview.innerHTML = `<p class="empty-cart-message">目前購物車是空的喔 🛒</p>`;
