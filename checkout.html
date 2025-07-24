@@ -101,72 +101,86 @@
     </div>
   </form>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      const delivery = document.getElementById("delivery");
-      const storeWrapper = document.getElementById("store-name-wrapper");
-      const form = document.getElementById("checkout-form");
-      const cartPreview = document.getElementById("cart-preview");
-      const submitBtn = document.getElementById("submit-btn");
+ <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const delivery = document.getElementById("delivery");
+    const storeWrapper = document.getElementById("store-name-wrapper");
+    const form = document.getElementById("checkout-form");
+    const cartPreview = document.getElementById("cart-preview");
+    const submitBtn = document.getElementById("submit-btn");
 
-      if (delivery) {
-        delivery.addEventListener("change", () => {
-          storeWrapper.style.display = (delivery.value === "超商" || delivery.value === "蝦皮") ? "block" : "none";
-        });
-      }
-
-      let total = 0;
-      if (cart.length === 0) {
-        cartPreview.innerHTML = `<p class="empty-cart-message">目前購物車是空的喔 🛒</p>`;
-        submitBtn.disabled = true;
-        submitBtn.style.backgroundColor = "#ccc";
-        submitBtn.style.cursor = "not-allowed";
-      } else {
-        cart.forEach(item => {
-          total += item.price * item.quantity;
-          cartPreview.innerHTML += `<p>${item.name} ×${item.quantity} — NT$${item.price * item.quantity}</p>`;
-        });
-        cartPreview.innerHTML += `<p style="margin-top: 8px; font-weight: bold;">總金額：NT$${total.toLocaleString("zh-Hant-TW")}</p>`;
-      }
-
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        if (cart.length === 0) return alert("購物車為空，無法結帳");
-
-        document.getElementById("items-data").value = cart.map(i => `${i.name} x${i.quantity}`).join(", ");
-        document.getElementById("total-data").value = `NT$${total}`;
-
-        const formData = new FormData(form);
-        const paymentMethod = formData.get("payment");
-
-        try {
-          const res = await fetch("https://formspree.io/f/mgvzarlo", {
-            method: "POST",
-            body: formData,
-            headers: { Accept: "application/json" },
-          });
-
-          if (res.ok) {
-            localStorage.removeItem("cart");
-
-            if (paymentMethod === "銀行轉帳") {
-              window.location.href = "bank-transfer.html";
-            } else if (paymentMethod === "全支付") {
-              window.location.href = "pay.html";
-            } else {
-              alert("訂單已送出，我們將儘快與您聯繫！");
-              window.location.href = "index.html";
-            }
-          } else {
-            alert("訂單送出失敗，請稍後再試");
-          }
-        } catch (error) {
-          alert("發生錯誤：" + error.message);
-          console.error(error);
-        }
+    if (delivery) {
+      delivery.addEventListener("change", () => {
+        storeWrapper.style.display = (delivery.value === "超商" || delivery.value === "蝦皮") ? "block" : "none";
       });
+    }
+
+    let total = 0;
+    if (cart.length === 0) {
+      cartPreview.innerHTML = `<p class="empty-cart-message">目前購物車是空的喔 🛒</p>`;
+      submitBtn.disabled = true;
+      submitBtn.style.backgroundColor = "#ccc";
+      submitBtn.style.cursor = "not-allowed";
+    } else {
+      cart.forEach(item => {
+        total += item.price * item.quantity;
+        cartPreview.innerHTML += `<p>${item.name} ×${item.quantity} — NT$${item.price * item.quantity}</p>`;
+      });
+      cartPreview.innerHTML += `<p style="margin-top: 8px; font-weight: bold;">總金額：NT$${total.toLocaleString("zh-Hant-TW")}</p>`;
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (cart.length === 0) return alert("購物車為空，無法結帳");
+
+      document.getElementById("items-data").value = cart.map(i => `${i.name} x${i.quantity}`).join(", ");
+      document.getElementById("total-data").value = `NT$${total}`;
+
+      const formData = new FormData(form);
+      const paymentMethod = formData.get("payment");
+
+      try {
+        const res = await fetch("https://formspree.io/f/mgvzarlo", {
+          method: "POST",
+          body: formData,
+          headers: { Accept: "application/json" },
+        });
+
+        if (res.ok) {
+          localStorage.removeItem("cart");
+
+          const name = formData.get("name");
+          const phone = formData.get("phone");
+          const payment = formData.get("payment");
+          const items = formData.get("items");
+          const total = formData.get("total");
+
+          const query = new URLSearchParams({
+            name,
+            phone,
+            payment,
+            items,
+            total
+          }).toString();
+
+          if (paymentMethod === "銀行轉帳") {
+            window.location.href = "bank-transfer.html?" + query;
+          } else if (paymentMethod === "全支付") {
+            window.location.href = "pay.html";
+          } else {
+            alert("訂單已送出，我們將儘快與您聯繫！");
+            window.location.href = "index.html";
+          }
+        } else {
+          alert("訂單送出失敗，請稍後再試");
+        }
+      } catch (error) {
+        alert("發生錯誤：" + error.message);
+        console.error(error);
+      }
     });
-  </script>
+  });
+</script>
 </body>
 </html>
