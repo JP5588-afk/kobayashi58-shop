@@ -142,7 +142,7 @@
     <label for="payment">支付方式：</label>
     <select id="payment" name="payment" required>
       <option value="">請選擇</option>
-     <option value="ATM">網銀轉帳</option>
+     <option value="ATM">銀行轉帳</option>
      <option value="信用卡">信用卡</option>
      <option value="全支付">全支付</option>
      <option value="貨到付款">貨到付款</option>
@@ -240,7 +240,7 @@
 
   const paymentMethod = formData.get("payment");
 
-  if (paymentMethod === "ATM") {
+  if (paymentMethod === "銀行轉帳") {
     window.location.href = "bank-transfer.html";
   } else if (paymentMethod === "全支付") {
     window.location.href = "pay.html";
