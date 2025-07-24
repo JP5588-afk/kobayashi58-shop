@@ -214,11 +214,18 @@
   const paymentMethod = formData.get("payment");
 
   // ATM 轉跳至 bank-transfer.html
-  if (paymentMethod === "ATM") {
-    localStorage.setItem("formData", JSON.stringify(Object.fromEntries(formData)));
-    window.location.href = "bank-transfer.html";
-    return;
-  }
+  if (res.ok) {
+  localStorage.removeItem("cart");
+
+  const name = formData.get("name");
+  const phone = formData.get("phone");
+  const payment = formData.get("payment");
+  const items = formData.get("items");
+  const total = formData.get("total");
+
+  const query = new URLSearchParams({ name, phone, payment, items, total }).toString();
+  window.location.href = "bank-transfer.html?" + query;
+}
 
   // 其他方式照原本流程送出到 Formspree
   const res = await fetch("https://formspree.io/f/mgvzarlo", {
