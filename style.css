@@ -56,9 +56,39 @@ main {
   background-color: #fff;
   color: #444;
   font-family: "Noto Sans TC", sans-serif;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
-/* ✅ 不再自定義外觀，避免卡頓，也不使用背景 SVG */
+/* ✅ 還原 select 框原生樣式箭頭 */
 .form-group select {
-  background-image: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 8L0.803847 0.5H11.1962L6 8Z' fill='%23ff69b4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px 8px;
+}
+
+/* iOS Safari 修正：點選時讓選單更穩定 */
+select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.2);
+}
+
+/* 輸入框 focus 效果 */
+input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.2);
+}
+
+/* 手機 RWD 優化 */
+@media (max-width: 480px) {
+  #checkout-form {
+    padding: 20px;
+    margin: 20px 16px;
+  }
+  .form-group select,
+  .form-group input {
+    font-size: 18px;
+  }
 }
