@@ -385,4 +385,47 @@ h1 {
   .product:hover {
     transform: none;
   }
+  /* 商品詳情右上角購物車浮動按鈕 */
+.detail-cart-float {
+  position: fixed;
+  top: 12px;
+  right: 16px;
+  font-size: 20px;
+  color: white;
+  text-decoration: none;
+  background-color: #ff69b4;
+  padding: 10px 16px;
+  border-radius: 12px;
+  z-index: 999;
+  font-weight: bold;
+}
+
+.detail-cart-float .badge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+
+/* 商品詳情頁數量與按鈕併排 */
+.detail-action-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  flex-wrap: nowrap;
+}
+
+/* 回到選物按鈕置中 */
+.detail-nav-group {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
 }
