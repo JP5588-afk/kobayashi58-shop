@@ -9,17 +9,39 @@
     body {
       background-color: #fff0f5;
       font-family: "Noto Sans TC", sans-serif;
+      padding: 20px;
+      color: #444;
+    }
+
+    .back-btn {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      font-size: 24px;
+      text-decoration: none;
+      color: #ff69b4;
+      font-weight: bold;
+      background: none;
+      border-radius: 50%;
+      padding: 6px 12px;
+      z-index: 999;
+    }
+
+    h2 {
       text-align: center;
-      padding: 40px 20px;
-      color: #333;
+      font-size: 22px;
+      color: #ff69b4;
+      margin-bottom: 20px;
     }
 
     .qr-box {
       background: white;
       padding: 20px;
       border-radius: 16px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      display: inline-block;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      max-width: 360px;
+      margin: 0 auto 20px;
+      text-align: center;
     }
 
     .qr-box img {
@@ -29,25 +51,39 @@
     }
 
     .note {
-      margin-top: 20px;
-      font-size: 16px;
-      color: #555;
+      font-size: 15px;
+      text-align: center;
+      color: #d6336c;
+      margin-top: 24px;
       line-height: 1.6;
+    }
+
+    .line-link {
+      display: block;
+      text-align: center;
+      margin-top: 14px;
+      color: #007bff;
+      text-decoration: none;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
 
-  <h2>請使用全支付 App 掃描 QR Code 付款</h2>
+  <a href="index.html" class="back-btn">←</a>
+
+  <h2>請使用「全支付 App」掃描 QR Code 付款</h2>
 
   <div class="qr-box">
     <img src="twqr.png" alt="全支付 QRCode">
   </div>
 
   <p class="note">
-    ▲ 此為 TQWR 收款碼<br>
-    ▲ 請付款後截圖回傳確認
+    ▲ 此為全支付 TQWR 收款碼<br>
+    ▲ 請付款後截圖並回傳給我們確認
   </p>
+
+  <a href="https://line.me/ti/p/vSRRZBD_vF" class="line-link" target="_blank">點我加入 LINE 客服</a>
 
 </body>
 </html>
