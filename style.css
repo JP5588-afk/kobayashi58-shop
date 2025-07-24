@@ -56,4 +56,23 @@ main {
   display: block;
   opacity: 1;
 }
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid #ff69b4;
+  box-sizing: border-box;
+  font-size: 16px;
+  background-color: #fff;
+
+  /* 不再自定義外觀，避免卡頓 */
+  /* 不使用以下三行：
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  */
+
+  /* 不要背景圖（原本的箭頭 SVG） */
+  background-image: none;
+}
 
