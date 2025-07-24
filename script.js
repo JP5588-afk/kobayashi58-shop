@@ -1,3 +1,4 @@
+script.js
 function updateCartDisplay() {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
   const cartContainer = document.getElementById("cart-items");
@@ -12,25 +13,25 @@ function updateCartDisplay() {
 
     const div = document.createElement("div");
     div.className = "cart-item";
-    div.innerHTML = `
+    div.innerHTML = 
       <img src="https://via.placeholder.com/80" alt="商品圖示" class="cart-img">
       <div class="cart-info">
         <h3>${item.name}</h3>
         <p>單價：NT$${item.price}</p>
         <label>數量：</label>
         <select data-index="${index}" class="qty">
-          ${[...Array(10)].map((_, i) => `
+          ${[...Array(10)].map((_, i) => 
             <option value="${i + 1}" ${item.quantity === i + 1 ? 'selected' : ''}>${i + 1}</option>
-          `).join('')}
+          ).join('')}
         </select>
         <p>小計：NT$${subtotal}</p>
         <button class="remove-btn" data-index="${index}">🗑 刪除</button>
       </div>
-    `;
+    ;
     cartContainer.appendChild(div);
   });
 
-  totalDisplay.textContent = `總金額：NT$${total}`;
+  totalDisplay.textContent = 總金額：NT$${total};
 }
 
 function addToCart(name, price) {
@@ -44,7 +45,7 @@ function addToCart(name, price) {
   }
 
   localStorage.setItem("cart", JSON.stringify(cart));
-  alert(`${name} 已加入購物車！`);
+  alert(${name} 已加入購物車！);
 }
 
 // ✅ 初始化購物車畫面
