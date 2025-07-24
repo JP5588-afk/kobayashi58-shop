@@ -6,6 +6,62 @@
   <title>こばやし選物所</title>
   <link rel="stylesheet" href="style.css" />
   <style>
+    body {
+      font-family: "Noto Sans TC", sans-serif;
+      background-color: #fff0f5;
+      margin: 0;
+    }
+
+    header {
+      background-color: #ffc0cb;
+      padding: 20px 16px 60px;
+      text-align: center;
+      position: relative;
+    }
+
+    .tagline {
+      margin: 8px 0 0;
+      font-size: 16px;
+      color: #444;
+    }
+
+    .cart-btn {
+      position: absolute;
+      top: 20px;
+      right: 16px;
+      font-size: 22px;
+      text-decoration: none;
+      color: #ff69b4;
+    }
+
+    .cart-btn .badge {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background-color: red;
+      color: white;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 50%;
+      font-weight: bold;
+    }
+
+    .link-row {
+      text-align: center;
+      margin: 20px 0 0;
+    }
+
+    .link-row a {
+      margin: 0 10px;
+      font-size: 14px;
+      text-decoration: none;
+      color: #555;
+      border: 1px solid #ff69b4;
+      padding: 6px 12px;
+      border-radius: 6px;
+      background-color: #fff;
+    }
+
     .product-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -42,9 +98,17 @@
 </head>
 <body>
   <header>
+    <a href="cart.html" class="cart-btn">
+      🛒<span class="badge" id="cart-count">0</span>
+    </a>
     <h1>こばやし選物所</h1>
     <p class="tagline">精選日系零食與小物，每一樣都想抱回家 🍡</p>
   </header>
+
+  <div class="link-row">
+    <a href="notice.html">📌 購買須知</a>
+    <a href="https://line.me/ti/g/C9W7CPNKNQ" target="_blank">💬 加入 LINE 群</a>
+  </div>
 
   <main class="product-grid">
     <div class="product-card">
@@ -54,7 +118,6 @@
         <p>NT$59</p>
       </a>
     </div>
-
     <div class="product-card">
       <a href="product.html?name=Calbee%20薯條">
         <img src="https://i.imgur.com/yYB2rVA.png" alt="Calbee">
@@ -62,7 +125,6 @@
         <p>NT$89</p>
       </a>
     </div>
-
     <div class="product-card">
       <a href="product.html?name=KitKat%20抹茶">
         <img src="https://i.imgur.com/zjgjWEn.png" alt="KitKat">
@@ -70,7 +132,6 @@
         <p>NT$65</p>
       </a>
     </div>
-
     <div class="product-card">
       <a href="product.html?name=Jagabee%20馬鈴薯條">
         <img src="https://i.imgur.com/UENrAhQ.png" alt="Jagabee">
@@ -78,7 +139,6 @@
         <p>NT$75</p>
       </a>
     </div>
-
     <div class="product-card">
       <a href="product.html?name=Meiji%20果汁軟糖">
         <img src="https://i.imgur.com/WbdZRMv.png" alt="Meiji">
@@ -86,7 +146,6 @@
         <p>NT$45</p>
       </a>
     </div>
-
     <div class="product-card">
       <a href="product.html?name=Pretz%20鹽味棒">
         <img src="https://i.imgur.com/AZcEKU3.png" alt="Pretz">
@@ -95,5 +154,14 @@
       </a>
     </div>
   </main>
+
+  <script>
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
+      document.getElementById("cart-count").textContent = totalQty;
+    }
+    document.addEventListener("DOMContentLoaded", updateCartCount);
+  </script>
 </body>
 </html>
