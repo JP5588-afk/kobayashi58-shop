@@ -6,14 +6,70 @@
   <title>商品詳情 | こばやし選物所</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    .qty-select {
-      padding: 10px;
-      font-size: 16px;
-      border-radius: 8px;
-      border: 1px solid #ff69b4;
-      flex: 1;
+    body {
+      font-family: "Noto Sans TC", sans-serif;
+      background-color: #fff0f5;
+      margin: 0;
+      padding: 0;
     }
 
+    header {
+      position: relative;
+      padding: 20px;
+      text-align: center;
+      background-color: #ffc0cb;
+      color: white;
+      font-weight: bold;
+      font-size: 24px;
+      border-bottom: 4px solid #ff69b4;
+    }
+
+    /* ✅ 右上角購物車徽章 無底粉紅 */
+    .detail-cart-float {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      font-size: 24px;
+      text-decoration: none;
+      z-index: 999;
+    }
+
+    .detail-cart-float .badge {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background-color: red;
+      color: white;
+      font-size: 13px;
+      padding: 4px 7px;
+      border-radius: 50%;
+      line-height: 1;
+      font-weight: bold;
+    }
+
+    .product-detail-container {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .detail-img {
+      max-width: 90%;
+      max-height: 300px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      font-size: 22px;
+      margin: 8px 0;
+    }
+
+    p {
+      font-size: 16px;
+      color: #444;
+    }
+
+    /* ✅ 下拉 + 按鈕併排 */
     .detail-action-group {
       display: flex;
       justify-content: center;
@@ -23,15 +79,35 @@
       flex-wrap: nowrap;
     }
 
+    .qty-select {
+      padding: 10px 14px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 2px solid #ff69b4;
+      background-color: #fff;
+      color: #444;
+      flex: 1 1 45%;
+      min-width: 100px;
+      box-sizing: border-box;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='70,100 100,40 40,40' fill='%23ff69b4'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 14px;
+    }
+
     .checkout-btn {
       background-color: #ff69b4;
       color: white;
-      padding: 10px;
+      padding: 10px 14px;
       border-radius: 8px;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: bold;
       border: none;
       cursor: pointer;
+      flex: 1 1 45%;
+      min-width: 100px;
+      box-sizing: border-box;
     }
 
     .checkout-btn:hover {
@@ -68,45 +144,17 @@
       transition: all 0.7s ease-in-out;
       pointer-events: none;
     }
-
-    .header-cart {
-      position: absolute;
-      top: 12px;
-      right: 16px;
-      font-size: 20px;
-      color: white;
-      text-decoration: none;
-    }
-
-    .header-cart .badge {
-      position: absolute;
-      top: -6px;
-      right: -8px;
-      background-color: red;
-      color: white;
-      font-size: 12px;
-      padding: 2px 6px;
-      border-radius: 50%;
-    }
-
-    header {
-      position: relative;
-      padding: 20px;
-      text-align: center;
-      background-color: #ffc0cb;
-      color: white;
-      font-weight: bold;
-      font-size: 24px;
-    }
   </style>
 </head>
 <body>
   <header>
-  商品詳情
+    商品詳情
+  </header>
+
+  <!-- ✅ 無底色購物車浮動 -->
   <a href="cart.html" class="detail-cart-float">
     🛒<span class="badge" id="cart-count">0</span>
   </a>
-</header>
 
   <main class="product-detail-container">
     <img id="product-img" src="" alt="商品圖片" class="detail-img" />
@@ -177,7 +225,7 @@
         document.body.appendChild(flyImg);
 
         const start = img.getBoundingClientRect();
-        const end = document.querySelector(".header-cart").getBoundingClientRect();
+        const end = document.querySelector(".detail-cart-float").getBoundingClientRect();
 
         flyImg.style.left = `${start.left}px`;
         flyImg.style.top = `${start.top}px`;
