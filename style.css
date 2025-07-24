@@ -110,3 +110,34 @@ h1 {
   transition: all 0.7s ease-in-out;
   pointer-events: none;
 }
+.cart-btn-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  max-width: 420px;
+  margin: 30px auto 0;
+}
+
+.cart-btn-group a,
+.cart-btn-group button {
+  flex: 1 1 45%;
+  min-width: 140px;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 12px;
+  box-sizing: border-box;
+  border: none;
+  color: white;
+  background-color: #ff69b4;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.cart-btn-group a:hover,
+.cart-btn-group button:hover {
+  background-color: #e75494;
+}
