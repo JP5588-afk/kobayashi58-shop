@@ -204,26 +204,36 @@
   }
 
   form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    if (cart.length === 0) return alert("購物車為空，無法結帳");
+  e.preventDefault();
+  if (cart.length === 0) return alert("購物車為空，無法結帳");
 
-    document.getElementById("items-data").value = cart.map(i => `${i.name} x${i.quantity}`).join(", ");
-    document.getElementById("total-data").value = `NT$${total}`;
+  document.getElementById("items-data").value = cart.map(i => `${i.name} x${i.quantity}`).join(", ");
+  document.getElementById("total-data").value = `NT$${total}`;
 
-    const formData = new FormData(form);
-    const res = await fetch("https://formspree.io/f/mgvzarlo", {
-      method: "POST",
-      body: formData,
-      headers: { Accept: "application/json" },
-    });
+  const formData = new FormData(form);
+  const paymentMethod = formData.get("payment");
 
-    if (res.ok) {
-      localStorage.removeItem("cart");
-      window.location.href = "pay.html";
-    } else {
-      alert("訂單送出失敗，請稍後再試");
-    }
+  // ATM 轉跳至 bank-transfer.html
+  if (paymentMethod === "ATM") {
+    localStorage.setItem("formData", JSON.stringify(Object.fromEntries(formData)));
+    window.location.href = "bank-transfer.html";
+    return;
+  }
+
+  // 其他方式照原本流程送出到 Formspree
+  const res = await fetch("https://formspree.io/f/mgvzarlo", {
+    method: "POST",
+    body: formData,
+    headers: { Accept: "application/json" },
   });
+
+  if (res.ok) {
+    localStorage.removeItem("cart");
+    window.location.href = "pay.html";
+  } else {
+    alert("訂單送出失敗，請稍後再試");
+  }
+});
 </script>
 
 </body>
