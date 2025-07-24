@@ -75,4 +75,15 @@ main {
   /* 不要背景圖（原本的箭頭 SVG） */
   background-image: none;
 }
+#store-name-wrapper input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid #ff69b4;
+  box-sizing: border-box;
+  font-size: 16px;
+  background-color: #fff;
+  color: #444;
+  font-family: "Noto Sans TC", sans-serif;
+}
 
