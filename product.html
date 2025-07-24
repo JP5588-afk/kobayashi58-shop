@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>商品詳情 | こばやし選物所</title>
+  <title>商品詳情｜こばやし選物所</title>
   <link rel="stylesheet" href="style.css" />
   <style>
     body {
@@ -14,247 +14,168 @@
     }
 
     header {
-      position: relative;
+      background-color: #ffc0cb;
       padding: 20px;
       text-align: center;
-      background-color: #ffc0cb;
-      color: white;
-      font-weight: bold;
-      font-size: 24px;
       border-bottom: 4px solid #ff69b4;
     }
 
-    /* ✅ 右上角購物車徽章 無底粉紅 */
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      color: #fff;
+    }
+
+    .detail-container {
+      max-width: 400px;
+      margin: 30px auto;
+      text-align: center;
+      padding: 0 16px;
+    }
+
+    .detail-container img {
+      width: 80%;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .detail-container h2 {
+      font-size: 22px;
+      margin: 0;
+    }
+
+    .detail-container .price {
+      font-size: 18px;
+      margin: 6px 0;
+    }
+
+    .detail-container .desc {
+      font-size: 15px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .detail-action-group {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin: 20px auto;
+      flex-wrap: wrap;
+      max-width: 320px;
+    }
+
+    .detail-action-group select,
+    .detail-action-group button {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ff69b4;
+      box-sizing: border-box;
+    }
+
+    .detail-action-group button {
+      background-color: #ff69b4;
+      color: white;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+
+    .detail-action-group button:hover {
+      background-color: #ff1493;
+    }
+
+    .back-btn {
+      display: block;
+      margin: 30px auto 0;
+      text-align: center;
+      padding: 12px;
+      border-radius: 12px;
+      background-color: #ff69b4;
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: bold;
+      max-width: 200px;
+    }
+
+    .back-btn:hover {
+      background-color: #ff1493;
+    }
+
     .detail-cart-float {
       position: fixed;
-      top: 16px;
+      top: 12px;
       right: 16px;
-      font-size: 24px;
+      font-size: 26px;
+      color: #ff69b4;
       text-decoration: none;
       z-index: 999;
     }
 
     .detail-cart-float .badge {
       position: absolute;
-      top: -6px;
-      right: -6px;
+      top: -8px;
+      right: -10px;
       background-color: red;
       color: white;
-      font-size: 13px;
-      padding: 4px 7px;
+      font-size: 12px;
+      padding: 2px 6px;
       border-radius: 50%;
+      font-weight: bold;
       line-height: 1;
-      font-weight: bold;
-    }
-
-    .product-detail-container {
-      padding: 20px;
-      text-align: center;
-    }
-
-    .detail-img {
-      max-width: 90%;
-      max-height: 300px;
-      border-radius: 12px;
-      margin-bottom: 16px;
-    }
-
-    h2 {
-      font-size: 22px;
-      margin: 8px 0;
-    }
-
-    p {
-      font-size: 16px;
-      color: #444;
-    }
-
-    /* ✅ 下拉 + 按鈕併排 */
-    .detail-action-group {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  margin-top: 20px;
-  flex-wrap: wrap; /* ✅ 自動換行避免手機擠壓 */
-}
-
-.detail-action-group select.qty-select,
-.detail-action-group button.checkout-btn {
-  flex: 1 1 140px;
-  max-width: 180px;
-  box-sizing: border-box;
-}
-    .qty-select {
-      padding: 10px 14px;
-      font-size: 16px;
-      border-radius: 8px;
-      border: 2px solid #ff69b4;
-      background-color: #fff;
-      color: #444;
-      flex: 1 1 45%;
-      min-width: 100px;
-      box-sizing: border-box;
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='70,100 100,40 40,40' fill='%23ff69b4'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 12px center;
-      background-size: 14px;
-    }
-
-    .checkout-btn {
-      background-color: #ff69b4;
-      color: white;
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-      flex: 1 1 45%;
-      min-width: 100px;
-      box-sizing: border-box;
-    }
-
-    .checkout-btn:hover {
-      background-color: #ff1493;
-    }
-
-    .detail-nav-group {
-      display: flex;
-      justify-content: center;
-      margin-top: 24px;
-    }
-
-    .detail-back-btn {
-      display: inline-block;
-      padding: 12px;
-      font-size: 16px;
-      font-weight: bold;
-      border-radius: 12px;
-      background-color: #ff69b4;
-      color: white;
-      text-decoration: none;
-      text-align: center;
-      min-width: 120px;
-    }
-
-    .detail-back-btn:hover {
-      background-color: #ff1493;
-    }
-
-    .fly-img {
-      position: absolute;
-      width: 50px;
-      z-index: 9999;
-      transition: all 0.7s ease-in-out;
-      pointer-events: none;
     }
   </style>
 </head>
 <body>
-  <header>
-    商品詳情
-  </header>
-
-  <!-- ✅ 無底色購物車浮動 -->
+  <!-- 🛒 浮動購物車 -->
   <a href="cart.html" class="detail-cart-float">
     🛒<span class="badge" id="cart-count">0</span>
   </a>
 
-  <main class="product-detail-container">
-    <img id="product-img" src="" alt="商品圖片" class="detail-img" />
-    <h2 id="product-name"></h2>
-    <p id="product-price"></p>
-    <p id="product-description">載入中...</p>
+  <header>
+    <h1>商品詳情</h1>
+  </header>
+
+  <main class="detail-container">
+    <img src="https://i.imgur.com/xkU43cF.png" alt="Pocky">
+    <h2>Pocky 巧克力棒</h2>
+    <p class="price">NT$59</p>
+    <p class="desc">經典巧克力風味的Pocky棒，日本原裝進口，酥脆可口超涮嘴 🍫</p>
 
     <div class="detail-action-group">
-      <select class="qty-select" id="detail-qty"></select>
-      <button class="checkout-btn" onclick="addToCart()">加入購物車</button>
+      <select id="qty">
+        ${[...Array(10)].map((_, i) => `<option value="${i + 1}">${i + 1}</option>`).join("")}
+      </select>
+      <button onclick="addToCart()">加入購物車</button>
     </div>
 
-    <div class="detail-nav-group">
-      <a href="index.html" class="detail-back-btn">← 回到選物</a>
-    </div>
+    <a href="index.html" class="back-btn">← 回到選物</a>
   </main>
 
   <script>
-    const products = {
-      "Pocky 巧克力棒": {
-        price: 59,
-        img: "https://i.imgur.com/0DE1rOH.jpg",
-        description: "經典巧克力風味的Pocky棒，日本原裝進口，酥脆可口超涮嘴 🍫"
-      },
-      "Calbee 薯條": {
-        price: 89,
-        img: "https://i.imgur.com/2nCt3Sb.jpg",
-        description: "人氣熱銷的Calbee薯條，鹹香酥脆，搭配啤酒一級棒 🍟🍺"
-      }
-    };
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const name = urlParams.get("name");
-
-    if (name && products[name]) {
-      const product = products[name];
-      document.getElementById("product-img").src = product.img;
-      document.getElementById("product-name").textContent = name;
-      document.getElementById("product-price").textContent = `NT$${product.price}`;
-      document.getElementById("product-description").textContent = product.description;
-
-      const qtySelect = document.getElementById("detail-qty");
-      for (let i = 1; i <= 10; i++) {
-        const option = document.createElement("option");
-        option.value = i;
-        option.textContent = i;
-        qtySelect.appendChild(option);
-      }
-
-      window.addToCart = function () {
-        const quantity = parseInt(qtySelect.value);
-        const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        const index = cart.findIndex(item => item.name === name);
-        if (index > -1) {
-          cart[index].quantity += quantity;
-        } else {
-          cart.push({ name, price: product.price, quantity, img: product.img });
-        }
-        localStorage.setItem("cart", JSON.stringify(cart));
-        flyToCart();
-        updateCartCount();
-      }
-
-      function flyToCart() {
-        const img = document.getElementById("product-img");
-        const flyImg = img.cloneNode(true);
-        flyImg.className = "fly-img";
-        document.body.appendChild(flyImg);
-
-        const start = img.getBoundingClientRect();
-        const end = document.querySelector(".detail-cart-float").getBoundingClientRect();
-
-        flyImg.style.left = `${start.left}px`;
-        flyImg.style.top = `${start.top}px`;
-
-        setTimeout(() => {
-          flyImg.style.left = `${end.left}px`;
-          flyImg.style.top = `${end.top}px`;
-          flyImg.style.opacity = 0;
-          setTimeout(() => flyImg.remove(), 700);
-        }, 50);
-      }
-
-      function updateCartCount() {
-        const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
-        document.getElementById("cart-count").textContent = totalQty;
-      }
-
-      updateCartCount();
-
-    } else {
-      document.querySelector("main").innerHTML = "<p>找不到這個商品 😢</p>";
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
+      document.getElementById("cart-count").textContent = totalQty;
     }
+
+    function addToCart() {
+      const qty = parseInt(document.getElementById("qty").value);
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const item = cart.find(p => p.name === "Pocky 巧克力棒");
+      if (item) {
+        item.quantity += qty;
+      } else {
+        cart.push({ name: "Pocky 巧克力棒", price: 59, quantity: qty, img: "https://i.imgur.com/xkU43cF.png" });
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartCount();
+    }
+
+    document.addEventListener("DOMContentLoaded", updateCartCount);
   </script>
 </body>
 </html>
