@@ -14,6 +14,7 @@
       position: relative;
     }
 
+    /* 返回按鈕樣式 */
     .back-btn {
       position: absolute;
       top: 16px;
@@ -22,6 +23,10 @@
       text-decoration: none;
       color: #ff69b4;
       font-weight: bold;
+      transition: color 0.2s;
+    }
+    .back-btn:hover {
+      color: #e91e63;
     }
 
     h2 {
@@ -49,12 +54,17 @@
       border: 2px solid #ff69b4;
       box-sizing: border-box;
       font-size: 16px;
-      appearance: none;
       background-color: #fff;
+    }
+
+    /* 美化 select 下拉箭頭 */
+    select {
+      appearance: none;
       background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23ff69b4' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: right 10px center;
-      background-size: 10px 10px;
+      background-size: 10px;
+      cursor: pointer;
     }
 
     .checkout-actions {
@@ -76,6 +86,16 @@
       color: gray;
       text-align: center;
       margin-top: 20px;
+    }
+
+    /* 移除 number 欄位上下箭頭 (保險加上) */
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type="number"] {
+      -moz-appearance: textfield;
     }
   </style>
 </head>
