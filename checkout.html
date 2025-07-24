@@ -22,11 +22,6 @@
       text-decoration: none;
       color: #ff69b4;
       font-weight: bold;
-      transition: color 0.2s;
-    }
-
-    .back-btn:hover {
-      color: #e91e63;
     }
 
     h2 {
@@ -55,15 +50,9 @@
       box-sizing: border-box;
       font-size: 16px;
       background-color: #fff;
-    }
-
-    select,
-    input[type="text"],
-    input[type="tel"] {
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
-      background-color: #fff;
     }
 
     select {
@@ -129,7 +118,7 @@
         <option value="">請選擇</option>
         <option value="超商">四大超商（7-11 / 全家 / OK / 萊爾富）</option>
         <option value="蝦皮">蝦皮店到店</option>
-        <option value="面交">自取</option>
+        <option value="面交">面交（滿1000限中彰投）</option>
       </select>
     </div>
 
@@ -161,23 +150,22 @@
       const cartPreview = document.getElementById("cart-preview");
       const submitBtn = document.getElementById("submit-btn");
 
-      // 顯示/隱藏店名輸入欄
-      delivery.addEventListener("change", () => {
+      function toggleStoreInput() {
         const value = delivery.value;
         if (value === "超商" || value === "蝦皮") {
           storeWrapper.style.display = "block";
           setTimeout(() => {
-            storeInput.focus();
-          }, 150);
+            try {
+              storeInput.focus();
+            } catch (e) {}
+          }, 200);
         } else {
           storeWrapper.style.display = "none";
         }
-      });
-
-      // 回上一頁如果還留有值也自動顯示
-      if (delivery.value === "超商" || delivery.value === "蝦皮") {
-        storeWrapper.style.display = "block";
       }
+
+      delivery.addEventListener("change", toggleStoreInput);
+      toggleStoreInput(); // 頁面初始化也跑一次
 
       // 顯示購物明細
       let total = 0;
