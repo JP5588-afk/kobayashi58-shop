@@ -1,10 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>商品詳情 | こばやし選物所</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .qty-select {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ff69b4;
+      margin-right: 10px;
+    }
+
+    .action-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -13,15 +31,20 @@
   </header>
 
   <main class="product-detail-container">
-    <img id="product-img" src="" alt="商品圖片" class="detail-img">
+    <img id="product-img" src="" alt="商品圖片" class="detail-img" />
     <h2 id="product-name"></h2>
     <p id="product-price"></p>
     <p id="product-description">載入中...</p>
-    <button id="add-to-cart-btn" class="checkout-btn">加入購物車</button>
+
+    <div class="action-row">
+      <select id="qty-select" class="qty-select">
+        ${[...Array(10)].map((_, i) => `<option value="${i+1}">${i+1}</option>`).join("")}
+      </select>
+      <button id="add-to-cart-btn" class="checkout-btn">加入購物車</button>
+    </div>
   </main>
 
   <script>
-    // 模擬商品資料（未來可以改成從 JSON 載入）
     const products = {
       "Pocky 巧克力棒": {
         price: 59,
@@ -35,7 +58,6 @@
       }
     };
 
-    // 從網址取得 name 參數
     const urlParams = new URLSearchParams(window.location.search);
     const name = urlParams.get("name");
 
@@ -46,16 +68,26 @@
       document.getElementById("product-price").textContent = `NT$${product.price}`;
       document.getElementById("product-description").textContent = product.description;
 
+      // 動態插入下拉選單選項
+      const qtySelect = document.getElementById("qty-select");
+      for (let i = 1; i <= 10; i++) {
+        const option = document.createElement("option");
+        option.value = i;
+        option.textContent = i;
+        qtySelect.appendChild(option);
+      }
+
       document.getElementById("add-to-cart-btn").addEventListener("click", () => {
+        const quantity = parseInt(qtySelect.value);
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
         const index = cart.findIndex(item => item.name === name);
         if (index > -1) {
-          cart[index].quantity += 1;
+          cart[index].quantity += quantity;
         } else {
-          cart.push({ name, price: product.price, quantity: 1 });
+          cart.push({ name, price: product.price, quantity, img: product.img });
         }
         localStorage.setItem("cart", JSON.stringify(cart));
-        alert(`${name} 已加入購物車！`);
+        alert(`${name} 已加入購物車（數量：${quantity}）！`);
       });
     } else {
       document.querySelector("main").innerHTML = "<p>找不到這個商品 😢</p>";
