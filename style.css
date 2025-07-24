@@ -74,12 +74,15 @@ h1 {
 
 .detail-cart-float {
   position: fixed;
-  top: 16px;
+  top: 12px;
   right: 16px;
   font-size: 24px;
-  color: #444;
+  color: #ff69b4;
   text-decoration: none;
+  background: none;         /* 移除背景 */
+  padding: 0;               /* 移除內距 */
   z-index: 999;
+
 }
 
 .detail-cart-float .badge {
