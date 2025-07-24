@@ -24,6 +24,7 @@
       font-weight: bold;
       transition: color 0.2s;
     }
+
     .back-btn:hover {
       color: #e91e63;
     }
@@ -56,28 +57,21 @@
       background-color: #fff;
     }
 
-    /* 美化 select 下拉箭頭 */
-    select {
-      appearance: none;
-      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23ff69b4' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 10px center;
-      background-size: 10px;
-      cursor: pointer;
-    }
-
-    /* 移除文字和電話欄位的上下箭頭 */
-    input[type="text"]::-webkit-inner-spin-button,
-    input[type="text"]::-webkit-outer-spin-button,
-    input[type="tel"]::-webkit-inner-spin-button,
-    input[type="tel"]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-
+    select,
     input[type="text"],
     input[type="tel"] {
-      -moz-appearance: textfield;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-color: #fff;
+    }
+
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='70,105 20,35 120,35' fill='%23ff69b4'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 16px;
+      cursor: pointer;
     }
 
     .checkout-actions {
@@ -133,15 +127,15 @@
       <label for="delivery">取貨方式：</label>
       <select id="delivery" name="delivery" required>
         <option value="">請選擇</option>
-        <option value="超商">四大超商</option>
+        <option value="超商">四大超商（7-11 / 全家 / OK / 萊爾富）</option>
         <option value="蝦皮">蝦皮店到店</option>
-        <option value="其他">其他</option>
+        <option value="面交">自取</option>
       </select>
     </div>
 
     <div class="form-group" id="store-name-wrapper" style="display: none;">
       <label for="store">請輸入店名：</label>
-      <input type="text" id="store" name="store" placeholder="例如：711-台北忠孝店" />
+      <input type="text" id="store" name="store" placeholder="例如：7-11 台北忠孝店" />
     </div>
 
     <div id="checkout-items">
@@ -162,22 +156,30 @@
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
       const delivery = document.getElementById("delivery");
       const storeWrapper = document.getElementById("store-name-wrapper");
+      const storeInput = document.getElementById("store");
       const form = document.getElementById("checkout-form");
       const cartPreview = document.getElementById("cart-preview");
       const submitBtn = document.getElementById("submit-btn");
 
-     delivery.addEventListener("change", () => {
-  const value = delivery.value;
-  if (value === "超商" || value === "蝦皮") {
-  storeWrapper.classList.add("show");
-  setTimeout(() => {
-    document.getElementById("store").focus();
-  }, 100);
-} else {
-  storeWrapper.classList.remove("show");
-}
-});
+      // 顯示/隱藏店名輸入欄
+      delivery.addEventListener("change", () => {
+        const value = delivery.value;
+        if (value === "超商" || value === "蝦皮") {
+          storeWrapper.style.display = "block";
+          setTimeout(() => {
+            storeInput.focus();
+          }, 150);
+        } else {
+          storeWrapper.style.display = "none";
+        }
+      });
 
+      // 回上一頁如果還留有值也自動顯示
+      if (delivery.value === "超商" || delivery.value === "蝦皮") {
+        storeWrapper.style.display = "block";
+      }
+
+      // 顯示購物明細
       let total = 0;
       if (cart.length === 0) {
         cartPreview.innerHTML = `<p class="empty-cart-message">目前購物車是空的喔 🛒</p>`;
@@ -192,6 +194,7 @@
         cartPreview.innerHTML += `<p style="margin-top: 8px; font-weight: bold;">總金額：NT$${total.toLocaleString("zh-Hant-TW")}</p>`;
       }
 
+      // 表單送出
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
         if (cart.length === 0) return alert("購物車為空，無法結帳");
