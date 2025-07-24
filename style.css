@@ -223,3 +223,16 @@ h1 {
   text-decoration: none;
   color: inherit;
 }
+@media (max-width: 500px) {
+  .detail-action-group {
+    flex-direction: column;
+  }
+
+  .cart-btn-row {
+    flex-direction: column;
+  }
+
+  .bottom-btn {
+    max-width: 100%;
+  }
+}
