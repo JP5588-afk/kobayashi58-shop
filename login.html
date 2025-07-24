@@ -1,38 +1,102 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <title>LINE 登入</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <title>LINE 登入中...</title>
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <style>
+    body {
+      margin: 0;
+      background: #f9f9f9;
+      font-family: "Helvetica Neue", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #333;
+    }
+    .loading-box {
+      text-align: center;
+    }
+    .spinner {
+      border: 6px solid #eee;
+      border-top: 6px solid #06c755;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .popup {
+      position: fixed;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px 30px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      text-align: center;
+      display: none;
+    }
+    .popup h3 {
+      margin: 0 0 10px;
+    }
+    .popup button {
+      background: #06c755;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-  <h2>登入中，請稍候...</h2>
+  <div class="loading-box">
+    <div class="spinner"></div>
+    <p>正在為您登入 LINE 中，請稍候...</p>
+  </div>
+
+  <div class="popup" id="popup">
+    <h3 id="popup-title">登入成功！</h3>
+    <p id="popup-text">歡迎，使用者。</p>
+    <button onclick="redirectToHome()">確定</button>
+  </div>
 
   <script>
-    const liffId = "2007810314-zxZgXZ32"; // 你的 LIFF ID
+    const liffId = "2007810314-zxZgXZ32";
 
     async function main() {
       try {
         await liff.init({ liffId });
 
-        // ⛔ 如果不是在 LINE App 開啟，就提示用戶
-        if (!liff.isInClient()) {
-          alert("請從 LINE 中開啟本頁面才能登入！");
-          return;
-        }
-
         if (!liff.isLoggedIn()) {
           liff.login();
         } else {
           const profile = await liff.getProfile();
-          alert(`歡迎，${profile.displayName} 已登入！`);
-          window.location.href = "index.html"; // 登入後跳轉回首頁
+          document.querySelector(".loading-box").style.display = "none";
+          const popup = document.getElementById("popup");
+          document.getElementById("popup-text").innerText = `歡迎，${profile.displayName} 已登入！`;
+          popup.style.display = "block";
         }
-
       } catch (error) {
-        console.error("LIFF 初始化失敗", error);
-        alert("發生錯誤，請稍後再試");
+        alert("登入失敗，請稍後再試！");
+        console.error(error);
       }
+    }
+
+    function redirectToHome() {
+      window.location.href = "index.html";
     }
 
     main();
