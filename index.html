@@ -156,12 +156,17 @@
   </main>
 
   <script>
-    function updateCartCount() {
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
-      document.getElementById("cart-count").textContent = totalQty;
-    }
-    document.addEventListener("DOMContentLoaded", updateCartCount);
-  </script>
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
+    document.getElementById("cart-count").textContent = totalQty;
+  }
+
+  // 頁面初次載入時
+  document.addEventListener("DOMContentLoaded", updateCartCount);
+
+  // ✅ 從上一頁返回也要同步購物車
+  window.addEventListener("pageshow", updateCartCount);
+</script>
 </body>
 </html>
