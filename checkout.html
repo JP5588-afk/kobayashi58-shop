@@ -3,28 +3,105 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>結帳頁面</title>
+  <title>結帳頁面 | こばやし選物所</title>
   <link rel="stylesheet" href="style.css" />
   <style>
+    body {
+      background-color: #fff0f5;
+      font-family: "Noto Sans TC", sans-serif;
+      padding: 20px;
+      color: #444;
+    }
+
+    h2.section-title {
+      font-size: 22px;
+      color: #333;
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    .form-group input,
+    .form-group select {
+      padding: 10px 12px;
+      border: 2px solid #ff69b4;
+      border-radius: 10px;
+      font-size: 16px;
+      background-color: #fff;
+      box-sizing: border-box;
+    }
+
+    #checkout-items {
+      margin-top: 30px;
+    }
+
+    #checkout-items h3 {
+      font-size: 20px;
+      margin-bottom: 12px;
+      color: #333;
+    }
+
+    #cart-preview p {
+      margin: 6px 0;
+      font-size: 16px;
+    }
+
     .checkout-actions {
       display: flex;
       justify-content: center;
-      gap: 12px;
-      margin-top: 20px;
+      gap: 16px;
+      margin-top: 30px;
       flex-wrap: wrap;
     }
-    .checkout-actions a {
-      flex: 1 1 140px;
-      background-color: #ff69b4;
-      color: white;
+
+    .checkout-actions a,
+    .checkout-actions button {
+      flex: 1 1 45%;
+      min-width: 140px;
+      padding: 14px;
+      font-size: 16px;
       font-weight: bold;
       text-align: center;
-      padding: 12px;
       border-radius: 12px;
+      box-sizing: border-box;
+      border: none;
+      color: white;
+      background-color: #ff69b4;
       text-decoration: none;
+      cursor: pointer;
     }
-    .checkout-actions a:hover {
-      background-color: #ff1493;
+
+    .checkout-actions a:hover,
+    .checkout-actions button:hover {
+      background-color: #e75494;
+    }
+
+    .empty-cart-message {
+      color: #999;
+      font-size: 16px;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 500px) {
+      .checkout-actions {
+        flex-direction: column;
+      }
+
+      .checkout-actions a,
+      .checkout-actions button {
+        max-width: 100%;
+      }
     }
   </style>
 </head>
@@ -79,7 +156,7 @@
 
   <div class="checkout-actions">
     <a href="index.html">← 返回選物</a>
-    <button type="submit" id="submit-btn" class="checkout-btn" style="flex:1 1 140px;">前往結帳</button>
+    <button type="submit" id="submit-btn">前往結帳</button>
   </div>
 </form>
 
@@ -104,9 +181,9 @@
   } else {
     cart.forEach(item => {
       total += item.price * item.quantity;
-      cartPreview.innerHTML += `<p>${item.name} x${item.quantity} - NT$${item.price * item.quantity}</p>`;
+      cartPreview.innerHTML += `<p>${item.name} ×${item.quantity} — NT$${item.price * item.quantity}</p>`;
     });
-    cartPreview.innerHTML += `<p>總金額：NT$${total}</p>`;
+    cartPreview.innerHTML += `<p style="margin-top: 8px; font-weight: bold;">總金額：NT$${total.toLocaleString("zh-Hant-TW")}</p>`;
   }
 
   form.addEventListener("submit", async (e) => {
