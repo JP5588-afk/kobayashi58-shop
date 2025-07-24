@@ -9,19 +9,23 @@
   <h2>登入中，請稍候...</h2>
 
   <script>
-    // 請用你的 Channel ID
-    const liffId = "2007810314";
+    const liffId = "2007810314"; // 替換成你的 Channel ID
 
     async function main() {
-      await liff.init({ liffId });
+      try {
+        await liff.init({ liffId });
 
-      if (!liff.isLoggedIn()) {
-        liff.login();
-      } else {
-        const profile = await liff.getProfile();
-        alert(`您好，${profile.displayName} 已登入！`);
-        // 你可以把它換成跳轉回首頁或執行其他操作
-        window.location.href = "index.html";
+        if (!liff.isLoggedIn()) {
+          liff.login();
+        } else {
+          const profile = await liff.getProfile();
+          alert(`歡迎，${profile.displayName} 已登入！`);
+          window.location.href = "index.html"; // 登入後跳轉回首頁
+        }
+
+      } catch (error) {
+        console.error("LIFF 初始化失敗", error);
+        alert("發生錯誤，請稍後再試");
       }
     }
 
