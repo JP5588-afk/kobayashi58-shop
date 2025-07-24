@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>付款資訊 | こばやし選物所</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background-color: #fff0f5;
+      font-family: "Noto Sans TC", sans-serif;
+      padding: 20px;
+      color: #444;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 22px;
+      color: #ff69b4;
+    }
+
+    .bank-info {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      max-width: 480px;
+      margin: 0 auto 20px;
+    }
+
+    .bank-info p {
+      font-size: 16px;
+      margin: 12px 0;
+    }
+
+    .copy-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fce4ec;
+      border: 1px solid #ff69b4;
+      border-radius: 8px;
+      padding: 10px;
+    }
+
+    .copy-label {
+      font-size: 16px;
+      white-space: nowrap;
+    }
+
+    .copy-text {
+      font-size: 16px;
+      word-break: break-all;
+      flex: 1;
+    }
+
+    .copy-btn {
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .note {
+      font-size: 15px;
+      text-align: center;
+      color: #d6336c;
+      margin-top: 24px;
+    }
+
+    .line-link {
+      display: block;
+      text-align: center;
+      margin-top: 14px;
+      color: #007bff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>ATM / 網銀 轉帳資訊</h2>
+  <div class="bank-info">
+    <p>銀行名稱：中國信託</p>
+    <p>銀行代碼：822</p>
+    <p>分行名稱：市政分行</p>
+    <p>收款戶名：小林商店</p>
+    <div class="copy-box">
+      <span class="copy-label">收款帳號：</span>
+      <span class="copy-text" id="account-number">532540433359</span>
+      <button class="copy-btn" onclick="copyAccount()">複製</button>
+    </div>
+  </div>
+
+  <p class="note">轉帳完成後請截圖並傳送給我們確認</p>
+  <a href="https://line.me/ti/p/vSRRZBD_vF" class="line-link" target="_blank">點我加入 LINE 客服</a>
+
+  <script>
+    function copyAccount() {
+      const text = document.getElementById("account-number").innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("帳號已複製：" + text);
+      });
+    }
+  </script>
+</body>
+</html>
