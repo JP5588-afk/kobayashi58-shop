@@ -1,76 +1,44 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#ffffff" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta charset="UTF-8">
   <title>LINE 登入中...</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <style>
     body {
-      margin: 0;
-      background: #f9f9f9;
-      font-family: "Helvetica Neue", sans-serif;
+      background-color: #fff0f5;
+      font-family: 'Noto Sans TC', sans-serif;
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       height: 100vh;
-      color: #333;
+      margin: 0;
     }
-    .loading-box {
+    .login-box {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 12px rgba(255, 105, 180, 0.3);
       text-align: center;
+      max-width: 320px;
     }
-    .spinner {
-      border: 6px solid #eee;
-      border-top: 6px solid #06c755;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-      margin: 20px auto;
+    .login-box h2 {
+      font-size: 20px;
+      color: #c71585;
+      margin-bottom: 12px;
     }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    .popup {
-      position: fixed;
-      top: 30%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #fff;
-      border-radius: 12px;
-      padding: 20px 30px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      text-align: center;
-      display: none;
-    }
-    .popup h3 {
-      margin: 0 0 10px;
-    }
-    .popup button {
-      background: #06c755;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
+    .success-msg {
+      font-size: 18px;
+      font-weight: bold;
+      color: #28a745;
     }
   </style>
 </head>
 <body>
-  <div class="loading-box">
-    <div class="spinner"></div>
-    <p>正在為您登入 LINE 中，請稍候...</p>
-  </div>
-
-  <div class="popup" id="popup">
-    <h3 id="popup-title">登入成功！</h3>
-    <p id="popup-text">歡迎，使用者。</p>
-    <button onclick="redirectToHome()">確定</button>
+  <div class="login-box">
+    <h2 id="status-text">登入中，請稍候...</h2>
   </div>
 
   <script>
@@ -84,19 +52,22 @@
           liff.login();
         } else {
           const profile = await liff.getProfile();
-          document.querySelector(".loading-box").style.display = "none";
-          const popup = document.getElementById("popup");
-          document.getElementById("popup-text").innerText = `歡迎，${profile.displayName} 已登入！`;
-          popup.style.display = "block";
+          const name = profile.displayName;
+
+          document.getElementById("status-text").innerHTML = `歡迎 <span class="success-msg">${name}</span> 已登入！`;
+
+          // 儲存使用者資訊，可用於 checkout.html 使用
+          localStorage.setItem("lineName", name);
+          localStorage.setItem("lineId", profile.userId);
+
+          setTimeout(() => {
+            window.location.href = "index.html";
+          }, 1500);
         }
       } catch (error) {
-        alert("登入失敗，請稍後再試！");
-        console.error(error);
+        console.error("LIFF 初始化失敗", error);
+        document.getElementById("status-text").textContent = "登入失敗，請稍後再試。";
       }
-    }
-
-    function redirectToHome() {
-      window.location.href = "index.html";
     }
 
     main();
