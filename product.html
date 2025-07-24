@@ -72,6 +72,7 @@
       border-radius: 10px;
       overflow: hidden;
       background-color: white;
+      user-select: none;
     }
 
     .qty-btn {
@@ -84,12 +85,20 @@
       cursor: pointer;
     }
 
+    .qty-btn:focus {
+      outline: none;
+    }
+
     .qty-input {
       width: 60px;
       text-align: center;
       border: none;
       font-size: 16px;
       font-family: "Noto Sans TC", sans-serif;
+    }
+
+    .qty-input:focus {
+      outline: none;
     }
 
     .detail-action-group button {
@@ -167,9 +176,9 @@
 
     <div class="detail-action-group">
       <div class="qty-control">
-        <button class="qty-btn" onclick="changeQty(-1)">-</button>
+        <button class="qty-btn" onmousedown="event.preventDefault();" onclick="changeQty(-1)">-</button>
         <input type="number" id="qty" class="qty-input" value="1" min="1" />
-        <button class="qty-btn" onclick="changeQty(1)">+</button>
+        <button class="qty-btn" onmousedown="event.preventDefault();" onclick="changeQty(1)">+</button>
       </div>
       <button onclick="addToCart()">加入購物車</button>
     </div>
