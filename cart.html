@@ -6,9 +6,28 @@
   <title>購物車 | こばやし選物所</title>
   <link rel="stylesheet" href="style.css" />
   <style>
+    body {
+      background: #fff0f5;
+      font-family: "Noto Sans TC", sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #ffc0cb;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 4px solid #ff69b4;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+      color: #fff;
+    }
+
     .cart-item {
       display: flex;
-      flex-direction: row;
       align-items: flex-start;
       gap: 12px;
       margin: 20px;
@@ -17,6 +36,7 @@
       border-radius: 12px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
       flex-wrap: wrap;
+      position: relative;
     }
 
     .cart-img {
@@ -41,24 +61,38 @@
       font-size: 15px;
     }
 
-    .qty-row {
+    .qty-control {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       margin: 6px 0;
     }
 
-    .qty {
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-
-    .remove-btn {
+    .qty-btn {
       background: #ff69b4;
       color: white;
       border: none;
-      padding: 8px 12px;
+      padding: 6px 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .qty-num {
+      font-size: 16px;
+      min-width: 24px;
+      text-align: center;
+    }
+
+    .remove-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: #ff69b4;
+      color: white;
+      border: none;
+      padding: 8px 14px;
       border-radius: 8px;
       font-size: 14px;
       cursor: pointer;
@@ -158,18 +192,14 @@
           <div class="cart-info">
             <h3>${item.name}</h3>
             <p>單價：${formatPrice(item.price)}</p>
-            <div class="qty-row">
-              <label>數量：
-                <select data-index="${index}" class="qty">
-                  ${[...Array(10)].map((_, i) => `
-                    <option value="${i + 1}" ${item.quantity === i + 1 ? "selected" : ""}>${i + 1}</option>
-                  `).join("")}
-                </select>
-              </label>
-              <button class="remove-btn" data-index="${index}">刪除</button>
+            <div class="qty-control">
+              <button class="qty-btn minus" data-index="${index}">-</button>
+              <span class="qty-num">${item.quantity}</span>
+              <button class="qty-btn plus" data-index="${index}">+</button>
             </div>
             <p>小計：${formatPrice(subtotal)}</p>
           </div>
+          <button class="remove-btn" data-index="${index}">刪除</button>
         `;
         cartContainer.appendChild(div);
       });
@@ -181,24 +211,28 @@
     document.addEventListener("DOMContentLoaded", () => {
       updateCartDisplay();
 
-      document.getElementById("cart-items").addEventListener("change", (e) => {
-        if (e.target.classList.contains("qty")) {
-          const index = e.target.dataset.index;
-          const cart = JSON.parse(localStorage.getItem("cart")) || [];
-          cart[index].quantity = parseInt(e.target.value);
-          localStorage.setItem("cart", JSON.stringify(cart));
-          updateCartDisplay();
-        }
-      });
-
       document.getElementById("cart-items").addEventListener("click", (e) => {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
         if (e.target.classList.contains("remove-btn")) {
           const index = e.target.dataset.index;
-          const cart = JSON.parse(localStorage.getItem("cart")) || [];
           cart.splice(index, 1);
-          localStorage.setItem("cart", JSON.stringify(cart));
-          updateCartDisplay();
         }
+
+        if (e.target.classList.contains("plus")) {
+          const index = e.target.dataset.index;
+          cart[index].quantity += 1;
+        }
+
+        if (e.target.classList.contains("minus")) {
+          const index = e.target.dataset.index;
+          if (cart[index].quantity > 1) {
+            cart[index].quantity -= 1;
+          }
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+        updateCartDisplay();
       });
     });
   </script>
