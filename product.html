@@ -5,6 +5,85 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>商品詳情 | こばやし選物所</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .qty-select {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ff69b4;
+      flex: 1;
+    }
+
+    .detail-action-group {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .checkout-btn {
+      flex: 1;
+      background-color: #ff69b4;
+      color: white;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+
+    .checkout-btn:hover {
+      background-color: #ff1493;
+    }
+
+    .detail-nav-group {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    .detail-back-btn, .cart-icon-btn {
+      display: inline-block;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 12px;
+      background-color: #ff69b4;
+      color: white;
+      text-decoration: none;
+      text-align: center;
+      min-width: 120px;
+    }
+
+    .detail-back-btn:hover, .cart-icon-btn:hover {
+      background-color: #ff1493;
+    }
+
+    .cart-icon-btn {
+      position: relative;
+    }
+
+    .cart-icon-btn::after {
+      content: '🛒';
+      position: absolute;
+      top: 6px;
+      right: 10px;
+      font-size: 20px;
+    }
+
+    .fly-img {
+      position: absolute;
+      width: 50px;
+      z-index: 9999;
+      transition: all 0.7s ease-in-out;
+      pointer-events: none;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -18,13 +97,14 @@
     <p id="product-description">載入中...</p>
 
     <div class="detail-action-group">
-      <select class="qty-select" id="detail-qty">
-        <!-- JavaScript 插入 -->
-      </select>
+      <select class="qty-select" id="detail-qty"></select>
       <button class="checkout-btn" onclick="addToCart()">加入購物車</button>
     </div>
 
-    <a href="index.html" class="detail-back-btn">← 回到選物</a>
+    <div class="detail-nav-group">
+      <a href="cart.html" class="cart-icon-btn">購物車</a>
+      <a href="index.html" class="detail-back-btn">← 回到選物</a>
+    </div>
   </main>
 
   <script>
@@ -69,8 +149,29 @@
           cart.push({ name, price: product.price, quantity, img: product.img });
         }
         localStorage.setItem("cart", JSON.stringify(cart));
-        alert(`${name} 已加入購物車（數量：${quantity}）！`);
+        flyToCart();
       }
+
+      function flyToCart() {
+        const img = document.getElementById("product-img");
+        const flyImg = img.cloneNode(true);
+        flyImg.className = "fly-img";
+        document.body.appendChild(flyImg);
+
+        const start = img.getBoundingClientRect();
+        const end = document.querySelector(".cart-icon-btn").getBoundingClientRect();
+
+        flyImg.style.left = `${start.left}px`;
+        flyImg.style.top = `${start.top}px`;
+
+        setTimeout(() => {
+          flyImg.style.left = `${end.left}px`;
+          flyImg.style.top = `${end.top}px`;
+          flyImg.style.opacity = 0;
+          setTimeout(() => flyImg.remove(), 700);
+        }, 50);
+      }
+
     } else {
       document.querySelector("main").innerHTML = "<p>找不到這個商品 😢</p>";
     }
