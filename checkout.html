@@ -50,16 +50,11 @@
       box-sizing: border-box;
       font-size: 16px;
       background-color: #fff;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
     }
 
+    /* 讓 select 在手機不會卡 */
     select {
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='70,105 20,35 120,35' fill='%23ff69b4'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 12px center;
-      background-size: 16px;
+      background-color: white;
       cursor: pointer;
     }
 
@@ -121,23 +116,14 @@
       <select id="delivery" name="delivery" required>
         <option value="">請選擇</option>
         <option value="超商">四大超商（7-11 / 全家 / OK / 萊爾富）</option>
-       <option value="蝦皮">蝦皮店到店</option>
-       <option value="面交">自取（面交）</option>
-
-
+        <option value="蝦皮">蝦皮店到店</option>
+        <option value="自取">自取（面交）</option>
       </select>
     </div>
 
-    <!-- 顯示輸入店名欄位（只有選超商/蝦皮才出現） -->
     <div class="form-group" id="store-name-wrapper">
       <label for="store">請輸入店名：</label>
-      <input
-        type="text"
-        id="store"
-        name="store"
-        placeholder="例如：711-台中建成店"
-        autocomplete="off"
-      />
+      <input type="text" id="store" name="store" placeholder="例如：711-台中建成店" autocomplete="off" />
     </div>
 
     <div id="checkout-items">
@@ -162,7 +148,6 @@
       const cartPreview = document.getElementById("cart-preview");
       const submitBtn = document.getElementById("submit-btn");
 
-      // ✅ 控制店名欄位顯示
       function toggleStoreInput() {
         const value = delivery.value;
         if (value === "超商" || value === "蝦皮") {
