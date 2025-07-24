@@ -169,13 +169,13 @@
      delivery.addEventListener("change", () => {
   const value = delivery.value;
   if (value === "超商" || value === "蝦皮") {
-    storeWrapper.style.display = "block";
-    setTimeout(() => {
-      document.getElementById("store").focus(); // 自動聚焦輸入框，讓使用者馬上打
-    }, 100);
-  } else {
-    storeWrapper.style.display = "none";
-  }
+  storeWrapper.classList.add("show");
+  setTimeout(() => {
+    document.getElementById("store").focus();
+  }, 100);
+} else {
+  storeWrapper.classList.remove("show");
+}
 });
 
       let total = 0;
