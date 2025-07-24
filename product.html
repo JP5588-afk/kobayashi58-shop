@@ -6,160 +6,23 @@
   <title>商品詳情｜こばやし選物所</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    body {
-      font-family: "Noto Sans TC", sans-serif;
-      background-color: #fff0f5;
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background-color: #ffc0cb;
-      padding: 20px;
-      text-align: center;
-      border-bottom: 4px solid #ff69b4;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 28px;
-      color: #fff;
-    }
-
-    .detail-container {
-      max-width: 400px;
-      margin: 30px auto;
-      text-align: center;
-      padding: 0 16px;
-    }
-
-    .detail-container img {
-      width: 80%;
-      border-radius: 12px;
-      margin-bottom: 20px;
-    }
-
-    .detail-container h2 {
-      font-size: 22px;
-      margin: 0;
-    }
-
-    .detail-container .price {
-      font-size: 18px;
-      margin: 6px 0;
-    }
-
-    .detail-container .desc {
-      font-size: 15px;
-      color: #666;
-      margin-bottom: 20px;
-    }
-
-    .detail-action-group {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 12px;
-      margin: 20px auto;
-      flex-wrap: wrap;
-      max-width: 320px;
-    }
-
-    .qty-control {
-      display: flex;
-      align-items: center;
-      border: 2px solid #ff69b4;
-      border-radius: 10px;
-      overflow: hidden;
-      background-color: white;
-      user-select: none;
-    }
-
-    .qty-btn {
-      background-color: #ff69b4;
-      color: white;
-      border: none;
-      padding: 8px 12px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .qty-btn:focus {
-      outline: none;
-    }
-
-    .qty-input {
-      width: 60px;
-      text-align: center;
-      border: none;
-      font-size: 16px;
-      font-family: "Noto Sans TC", sans-serif;
-    }
-
-    .qty-input:focus {
-      outline: none;
-    }
-
-    .detail-action-group button {
-      flex: 1;
-      padding: 10px;
-      font-size: 16px;
-      border-radius: 8px;
-      border: none;
-      background-color: #ff69b4;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .detail-action-group button:hover {
-      background-color: #ff1493;
-    }
-
-    .back-btn {
-      display: block;
-      margin: 30px auto 0;
-      text-align: center;
-      padding: 12px;
-      border-radius: 12px;
-      background-color: #ff69b4;
-      color: white;
-      text-decoration: none;
-      font-size: 16px;
-      font-weight: bold;
-      max-width: 200px;
-    }
-
-    .back-btn:hover {
-      background-color: #ff1493;
-    }
-
-    .detail-cart-float {
+    .back-top-btn {
       position: fixed;
-      top: 12px;
-      right: 16px;
-      font-size: 26px;
-      color: #ff69b4;
+      top: 14px;
+      left: 16px;
+      font-size: 24px;
       text-decoration: none;
-      z-index: 999;
-    }
-
-    .detail-cart-float .badge {
-      position: absolute;
-      top: -8px;
-      right: -10px;
-      background-color: red;
-      color: white;
-      font-size: 12px;
-      padding: 2px 6px;
-      border-radius: 50%;
+      color: #ff69b4;
       font-weight: bold;
-      line-height: 1;
+      z-index: 999;
+      background: none;
+      border-radius: 50%;
+      padding: 6px 12px;
     }
   </style>
 </head>
 <body>
+  <a href="index.html" class="back-top-btn">←</a>
   <a href="cart.html" class="detail-cart-float">
     🛒<span class="badge" id="cart-count">0</span>
   </a>
@@ -182,8 +45,6 @@
       </div>
       <button onclick="addToCart()">加入購物車</button>
     </div>
-
-    <a href="index.html" class="back-btn">← 回到選物</a>
   </main>
 
   <script>
