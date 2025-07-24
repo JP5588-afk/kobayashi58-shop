@@ -64,22 +64,82 @@
       font-size: 18px;
       color: #999;
     }
+
+    /* 🔻 新增：下方按鈕排版區 */
+    .cart-btn-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .bottom-btn {
+      flex: 1;
+      max-width: 180px;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      border-radius: 12px;
+      box-sizing: border-box;
+    }
+
+    .bottom-btn.cart-btn {
+      background-color: #ff69b4;
+      color: white;
+      text-decoration: none;
+      border: none;
+    }
+
+    .bottom-btn.cart-btn:hover {
+      background-color: #ff1493;
+    }
+
+    .bottom-btn.checkout-btn {
+      background-color: #ff69b4;
+      border: none;
+      color: white;
+    }
+
+    .bottom-btn.checkout-btn:hover {
+      background-color: #e75494;
+    }
+
+    @media (max-width: 600px) {
+      .bottom-btn {
+        font-size: 16px;
+        max-width: 100%;
+      }
+      .cart-btn-group {
+        flex-direction: column;
+      }
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>🛒 購物車</h1>
-    <a href="index.html" class="cart-btn">← 返回選物</a>
   </header>
 
   <main class="cart-container">
     <div id="cart-items"></div>
     <h3 id="total">總金額：NT$0</h3>
-    <a href="checkout.html" class="checkout-btn" id="checkout-btn">前往結帳</a>
+
+    <!-- 🔻 移動後的新按鈕區塊 -->
+    <div class="cart-btn-group">
+      <a href="index.html" class="bottom-btn cart-btn">← 返回選物</a>
+      <button class="bottom-btn checkout-btn" id="checkout-btn" onclick="goToCheckout()">前往結帳</button>
+    </div>
   </main>
 
   <script>
-    // 金額格式化：1234 => NT$1,234
+    function goToCheckout() {
+      if (!document.getElementById("checkout-btn").classList.contains("disabled")) {
+        window.location.href = "checkout.html";
+      }
+    }
+
     function formatPrice(num) {
       return "NT$" + num.toLocaleString("zh-Hant-TW");
     }
