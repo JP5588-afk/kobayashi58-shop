@@ -52,10 +52,15 @@
       font-size: 16px;
       background-color: #fff;
       color: #444;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-image: none;
     }
 
     .form-group select {
-      appearance: auto;
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
     }
 
     #store-name-wrapper {
@@ -79,10 +84,27 @@
       width: 100%;
     }
 
+    .checkout-actions button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
     .empty-cart-message {
       color: gray;
       text-align: center;
       margin-top: 20px;
+    }
+
+    #checkout-items h3 {
+      text-align: center;
+      color: #ff1493;
+      font-size: 20px;
+      margin-top: 20px;
+    }
+
+    #cart-preview {
+      text-align: center;
+      line-height: 1.8;
     }
   </style>
 </head>
@@ -176,8 +198,6 @@
       if (cart.length === 0) {
         cartPreview.innerHTML = `<p class="empty-cart-message">目前購物車是空的喔 🛒</p>`;
         submitBtn.disabled = true;
-        submitBtn.style.backgroundColor = "#ccc";
-        submitBtn.style.cursor = "not-allowed";
       } else {
         cart.forEach(item => {
           total += item.price * item.quantity;
